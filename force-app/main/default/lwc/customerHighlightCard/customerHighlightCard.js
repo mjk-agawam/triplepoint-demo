@@ -1,6 +1,7 @@
 import { LightningElement, api, wire } from 'lwc';
 import { getRecord, getFieldValue } from 'lightning/uiRecordApi';
 import { NavigationMixin } from 'lightning/navigation';
+import getUserPhotoUrl from '@salesforce/apex/CustomerHighlightCardController.getUserPhotoUrl';
 
 const CASE_FIELDS = [
     'Case.ContactId',
@@ -9,7 +10,6 @@ const CASE_FIELDS = [
     'Case.Contact.Phone',
     'Case.Contact.MobilePhone',
     'Case.Contact.Title',
-    'Case.Contact.PhotoUrl',
     'Case.Contact.AccountId',
     'Case.Contact.Account.Name'
 ];
@@ -21,7 +21,6 @@ const CONTACT_FIELDS = [
     'Contact.Phone',
     'Contact.MobilePhone',
     'Contact.Title',
-    'Contact.PhotoUrl',
     'Contact.AccountId',
     'Contact.Account.Name'
 ];
@@ -33,7 +32,6 @@ const WORKORDER_FIELDS = [
     'WorkOrder.Contact.Phone',
     'WorkOrder.Contact.MobilePhone',
     'WorkOrder.Contact.Title',
-    'WorkOrder.Contact.PhotoUrl',
     'WorkOrder.Contact.AccountId',
     'WorkOrder.Contact.Account.Name'
 ];
@@ -45,7 +43,6 @@ const SA_FIELDS = [
     'ServiceAppointment.Contact.Phone',
     'ServiceAppointment.Contact.MobilePhone',
     'ServiceAppointment.Contact.Title',
-    'ServiceAppointment.Contact.PhotoUrl',
     'ServiceAppointment.Contact.AccountId',
     'ServiceAppointment.Contact.Account.Name'
 ];
@@ -118,9 +115,9 @@ export default class CustomerHighlightCard extends NavigationMixin(LightningElem
                 this.phone = getFieldValue(data, 'Contact.Phone');
                 this.mobile = getFieldValue(data, 'Contact.MobilePhone');
                 this.title = getFieldValue(data, 'Contact.Title');
-                this.contactPhotoUrl = getFieldValue(data, 'Contact.PhotoUrl') || this.getDefaultAvatar();
                 this.accountId = getFieldValue(data, 'Contact.AccountId');
                 this.accountName = getFieldValue(data, 'Contact.Account.Name');
+                this.loadPhoto(null, this.contactId);
             } else if (this.objectApiName === 'Case') {
                 this.contactId = getFieldValue(data, 'Case.ContactId');
                 this.contactName = getFieldValue(data, 'Case.Contact.Name');
@@ -128,9 +125,9 @@ export default class CustomerHighlightCard extends NavigationMixin(LightningElem
                 this.phone = getFieldValue(data, 'Case.Contact.Phone');
                 this.mobile = getFieldValue(data, 'Case.Contact.MobilePhone');
                 this.title = getFieldValue(data, 'Case.Contact.Title');
-                this.contactPhotoUrl = getFieldValue(data, 'Case.Contact.PhotoUrl') || this.getDefaultAvatar();
                 this.accountId = getFieldValue(data, 'Case.Contact.AccountId');
                 this.accountName = getFieldValue(data, 'Case.Contact.Account.Name');
+                this.loadPhoto(null, this.contactId);
             } else if (this.objectApiName === 'WorkOrder') {
                 this.contactId = getFieldValue(data, 'WorkOrder.ContactId');
                 this.contactName = getFieldValue(data, 'WorkOrder.Contact.Name');
@@ -138,9 +135,9 @@ export default class CustomerHighlightCard extends NavigationMixin(LightningElem
                 this.phone = getFieldValue(data, 'WorkOrder.Contact.Phone');
                 this.mobile = getFieldValue(data, 'WorkOrder.Contact.MobilePhone');
                 this.title = getFieldValue(data, 'WorkOrder.Contact.Title');
-                this.contactPhotoUrl = getFieldValue(data, 'WorkOrder.Contact.PhotoUrl') || this.getDefaultAvatar();
                 this.accountId = getFieldValue(data, 'WorkOrder.Contact.AccountId');
                 this.accountName = getFieldValue(data, 'WorkOrder.Contact.Account.Name');
+                this.loadPhoto(null, this.contactId);
             } else if (this.objectApiName === 'ServiceAppointment') {
                 this.contactId = getFieldValue(data, 'ServiceAppointment.ContactId');
 
@@ -154,12 +151,28 @@ export default class CustomerHighlightCard extends NavigationMixin(LightningElem
                 this.phone = getFieldValue(data, 'ServiceAppointment.Contact.Phone');
                 this.mobile = getFieldValue(data, 'ServiceAppointment.Contact.MobilePhone');
                 this.title = getFieldValue(data, 'ServiceAppointment.Contact.Title');
-                this.contactPhotoUrl = getFieldValue(data, 'ServiceAppointment.Contact.PhotoUrl') || this.getDefaultAvatar();
                 this.accountId = getFieldValue(data, 'ServiceAppointment.Contact.AccountId');
                 this.accountName = getFieldValue(data, 'ServiceAppointment.Contact.Account.Name');
+                this.loadPhoto(null, this.contactId);
             }
         } else if (error) {
             console.error('Error loading record:', error);
+        }
+    }
+
+    async loadPhoto(contactPhotoUrl, contactId) {
+        if (contactPhotoUrl) {
+            this.contactPhotoUrl = contactPhotoUrl;
+        } else if (contactId) {
+            try {
+                const userPhotoUrl = await getUserPhotoUrl({ contactId: contactId });
+                this.contactPhotoUrl = userPhotoUrl || this.getDefaultAvatar();
+            } catch (error) {
+                console.error('Error loading user photo:', error);
+                this.contactPhotoUrl = this.getDefaultAvatar();
+            }
+        } else {
+            this.contactPhotoUrl = this.getDefaultAvatar();
         }
     }
 
