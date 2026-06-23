@@ -1,0 +1,26 @@
+<template>
+    <lightning-card title="Related" icon-name="standard:service_appointment">
+        <div class="slds-var-p-horizontal_medium slds-var-p-bottom_medium">
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Loading" size="small"></lightning-spinner>
+            </template>
+            <template if:false={isLoading}>
+                <div class="slds-media slds-media_center quick-link-row" onclick={handleClick}>
+                    <div class="slds-media__figure">
+                        <lightning-icon
+                            icon-name="standard:service_appointment"
+                            size="small"
+                            alternative-text="Service Appointments">
+                        </lightning-icon>
+                    </div>
+                    <div class="slds-media__body">
+                        <span class="quick-link-label">Service Appointments</span>
+                    </div>
+                    <div class="slds-media__figure slds-media__figure_reverse">
+                        <span class="quick-link-count">{count}</span>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>
