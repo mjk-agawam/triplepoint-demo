@@ -192,18 +192,18 @@
             <p class="text-sm text-muted mb-4">The demo scenario requires specific starting conditions. If you've run the demo before, these steps reset the org back to the correct starting state. If this is the first run on a fresh day, verify each item anyway.</p>
             <div class="space-y-4 text-[15px]">
                 <div class="bg-white rounded-lg p-4 border border-warning/30">
-                    <h3 class="font-semibold text-gray-900 mb-2">Reset Step 1: Verify SA-0242 Is Assigned to Harry Long (the WRONG tech)</h3>
-                    <p class="text-gray-700 mb-2">The demo's key moment (Scene 3) requires SA-0242 to start assigned to Harry Long, who does NOT have EPA 608 certification. This causes the jeopardy flag to appear. If you previously ran the demo and dragged the appointment to Alan Reed, the assignment needs to be swapped back.</p>
-                    <p class="text-gray-700 mb-2"><strong>How to check:</strong> Navigate to <span class="nav-url">/lightning/r/ServiceAppointment/08pg8000000CO3NAAW/view</span> and look at the Assigned Resources related list. It should show "Harry Long". If it shows "Alan Reed", you need to:</p>
+                    <h3 class="font-semibold text-gray-900 mb-2">Reset Step 1: Verify SA-0393 Is Assigned to Harry Long (the WRONG tech)</h3>
+                    <p class="text-gray-700 mb-2">The demo's key moment (Scene 3) requires SA-0393 to start assigned to Harry Long, who does NOT have EPA 608 certification. This causes the jeopardy flag to appear. If you previously ran the demo and dragged the appointment to Alan Reed, the assignment needs to be swapped back.</p>
+                    <p class="text-gray-700 mb-2"><strong>How to check:</strong> Navigate to <span class="nav-url">/lightning/r/ServiceAppointment/08pg8000000Dzk1AAC/view</span> and look at the Assigned Resources related list. It should show "Harry Long". If it shows "Alan Reed", you need to:</p>
                     <ol class="text-gray-700 text-sm space-y-1 ml-4 list-decimal list-inside">
                         <li>Delete the current AssignedResource record for Alan Reed</li>
-                        <li>Create a new AssignedResource record linking Harry Long (Service Resource ID: 0Hng80000005ZdCCAU) to SA-0242 (Service Appointment ID: 08pg8000000CO3NAAW)</li>
+                        <li>Create a new AssignedResource record linking Harry Long (Service Resource ID: 0Hng80000005ZdCCAU) to SA-0393 (Service Appointment ID: 08pg8000000Dzk1AAC)</li>
                         <li>The Apex trigger will automatically set the In Jeopardy flag to true</li>
                     </ol>
-                    <p class="text-gray-700 mt-2 text-sm"><strong>Verify:</strong> The SA-0242 record should show <strong>In Jeopardy = True</strong> after the reset.</p>
+                    <p class="text-gray-700 mt-2 text-sm"><strong>Verify:</strong> The SA-0393 record should show <strong>In Jeopardy = True</strong> after the reset.</p>
                 </div>
                 <div class="bg-white rounded-lg p-4 border border-warning/30">
-                    <h3 class="font-semibold text-gray-900 mb-2">Reset Step 2: Verify SA-0242 Scheduled Date Is Current</h3>
+                    <h3 class="font-semibold text-gray-900 mb-2">Reset Step 2: Verify SA-0393 Scheduled Date Is Current</h3>
                     <p class="text-gray-700">The service appointment is currently scheduled for <strong>June 23, 2026 at 2:00 PM UTC (10:00 AM ET)</strong>. If the demo date has changed, update SchedStartTime and SchedEndTime on the ServiceAppointment record so the appointment shows as "today" or "tomorrow" on the Gantt chart in the Dispatcher Console — not as a past-due item.</p>
                 </div>
                 <div class="bg-white rounded-lg p-4 border border-warning/30">
@@ -211,7 +211,7 @@
                     <p class="text-gray-700 mb-2">Lightning pages can take 3-5 seconds to load. To avoid dead air during the demo, pre-open these tabs in your browser before the audience joins:</p>
                     <ol class="text-gray-700 text-sm space-y-2 ml-4 list-decimal list-inside">
                         <li><strong>Tab 1 — Case Record:</strong> <span class="nav-url">/lightning/r/Case/500g8000012765TAAQ/view</span></li>
-                        <li><strong>Tab 2 — Work Order #00000323:</strong> <span class="nav-url">/lightning/r/WorkOrder/0WOg8000000DftNGAS/view</span></li>
+                        <li><strong>Tab 2 — Work Order #00000474:</strong> <span class="nav-url">/lightning/r/WorkOrder/0WOg8000000FpevGAC/view</span></li>
                         <li><strong>Tab 3 — Dispatcher Console:</strong> <span class="nav-url">/lightning/n/FSL__DispatchConsole</span></li>
                         <li><strong>Tab 4 — Service Director Dashboard:</strong> <span class="nav-url">/lightning/r/Dashboard/01Zg8000001WqSjEAK/view</span></li>
                     </ol>
@@ -316,7 +316,7 @@
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
                         <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">4</span> <strong>Scroll down to the Related Lists section.</strong> Look for the "Work Orders" related list.</p>
-                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">You should see <strong>WO#00000323 — "WO 1 - Emergency Break-Fix"</strong> listed here. This shows that a work order has already been created and linked to this case.</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">You should see <strong>WO#00000474 — "WO 1 - Emergency Break-Fix"</strong> listed here. This shows that a work order has already been created and linked to this case.</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
                         <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Work Orders related list</span></div>
@@ -328,7 +328,7 @@
                     <td colspan="2" style="background-color:#ECFDF5; border:1px solid #d1d5db; border-left:4px solid #2E844A; padding:12px 14px;">
                         <strong style="color:#2E844A;">↓ Transition to Scene 2</strong><br>
                         <span class="talk-quote">"Now let's look at that work order. This is where your dispatcher sees exactly what needs to happen — what equipment, what service contract covers it, and what skills are needed. Let me click into the work order."</span><br>
-                        <span style="font-size:13px; color:#6b7280; margin-top:6px; display:inline-block;"><strong>Action:</strong> Click on <strong>"WO 1 - Emergency Break-Fix"</strong> (WO#00000323) in the Related List to navigate to the Work Order record.</span>
+                        <span style="font-size:13px; color:#6b7280; margin-top:6px; display:inline-block;"><strong>Action:</strong> Click on <strong>"WO 1 - Emergency Break-Fix"</strong> (WO#00000474) in the Related List to navigate to the Work Order record.</span>
                     </td>
                     <td style="background-color:#ECFDF5; border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
                         <div class="screenshot-placeholder" style="min-height:60px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here</div>
@@ -368,12 +368,12 @@
                         <p class="talk-quote">"So the case created a work order. But before we dispatch a technician, we need to know: What piece of equipment is this? Is it under a service contract? What's the SLA? What's the maintenance history? Today at TP Mechanical, finding this out requires calling the customer, checking a filing cabinet, and maybe logging into a separate asset tracking system. Let me show you how this works in Salesforce."</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
-                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">1</span> <strong>You should now be on Work Order #00000323</strong> (from clicking in Scene 1), or navigate to:</p>
-                        <span class="nav-url" style="font-family:monospace; font-size:11px; background-color:#f1f5f9; padding:2px 6px; border-radius:4px; color:#475569; word-break:break-all; display:inline-block; margin-top:4px;">/lightning/r/WorkOrder/0WOg8000000DftNGAS/view</span>
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">1</span> <strong>You should now be on Work Order #00000474</strong> (from clicking in Scene 1), or navigate to:</p>
+                        <span class="nav-url" style="font-family:monospace; font-size:11px; background-color:#f1f5f9; padding:2px 6px; border-radius:4px; color:#475569; word-break:break-all; display:inline-block; margin-top:4px;">/lightning/r/WorkOrder/0WOg8000000FpevGAC/view</span>
                         <p style="margin-top:8px; font-size:13px; color:#6b7280;">The page title will show "WO 1 - Emergency Break-Fix". Wait for the page to fully render.</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
-                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Work Order #00000323</span></div>
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Work Order #00000474</span></div>
                     </td>
                 </tr>
 
@@ -385,7 +385,7 @@
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
                         <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">2</span> <strong>Point to the Work Order Details panel.</strong> Call out these fields:</p>
                         <ul style="margin-top:8px; margin-left:16px; list-style:disc; font-size:13px; color:#6b7280;">
-                            <li><strong>Work Order Number:</strong> 00000323</li>
+                            <li><strong>Work Order Number:</strong> 00000474</li>
                             <li><strong>Subject:</strong> "WO 1 - Emergency Break-Fix"</li>
                             <li><strong>Status:</strong> New</li>
                             <li><strong>Priority:</strong> Critical</li>
@@ -544,17 +544,17 @@
                     </td>
                 </tr>
 
-                <!-- Step 2: Locate SA-0242 -->
+                <!-- Step 2: Locate SA-0393 -->
                 <tr>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
                         <p style="font-size:13px; color:#6b7280;"><em>(No talk track for this step — just find the appointment visually on the Gantt.)</em></p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
-                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">2</span> <strong>Locate SA-0242 on the Gantt chart.</strong> Look for the appointment block on Harry Long's row, scheduled for June 23. It will have a <strong style="color:#EA001E;">red jeopardy flag (🔴)</strong> indicator.</p>
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">2</span> <strong>Locate SA-0393 on the Gantt chart.</strong> Look for the appointment block on Harry Long's row, scheduled for June 23. It will have a <strong style="color:#EA001E;">red jeopardy flag (🔴)</strong> indicator.</p>
                         <p style="margin-top:8px; font-size:13px; color:#6b7280;">If you can't find it: adjust the Gantt date range to include June 23. Use the "Service Territory" filter in the left panel → select "TP Mechanical - Cincinnati" to reduce noise.</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
-                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">SA-0242 on Harry Long's row with jeopardy flag</span></div>
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">SA-0393 on Harry Long's row with jeopardy flag</span></div>
                     </td>
                 </tr>
 
@@ -567,8 +567,8 @@
                         <p class="talk-quote" style="margin-top:10px;"><strong>Optional question to Terry:</strong> "How many times in the last month has something like this happened at TP Mechanical?" <span style="color:#706E6B; font-style:normal;">(Let him answer. His answer reinforces the value.)</span></p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top; background-color:#FEF2F2;">
-                        <p><span class="step-num" style="display:inline-block; background-color:#EA001E; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">3</span> <strong>Point to the red jeopardy flag on SA-0242.</strong> Make eye contact with Terry.</p>
-                        <p style="margin-top:10px; font-size:13px; color:#6b7280;">Optionally, click on the SA-0242 appointment block to open the appointment details flyout. You can also hover over Harry Long's name to show his skill profile — notably <strong>missing</strong> EPA 608 Certification.</p>
+                        <p><span class="step-num" style="display:inline-block; background-color:#EA001E; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">3</span> <strong>Point to the red jeopardy flag on SA-0393.</strong> Make eye contact with Terry.</p>
+                        <p style="margin-top:10px; font-size:13px; color:#6b7280;">Optionally, click on the SA-0393 appointment block to open the appointment details flyout. You can also hover over Harry Long's name to show his skill profile — notably <strong>missing</strong> EPA 608 Certification.</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top; background-color:#FEF2F2;">
                         <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Close-up of jeopardy flag</span></div>
@@ -583,11 +583,11 @@
                         <p class="talk-quote" style="margin-top:10px;"><strong>After the flag clears:</strong> "The jeopardy flag is gone. The system confirmed that Alan has the right qualifications. Your dispatcher just prevented a wasted truck roll in one drag-and-drop. No phone calls. No checking a spreadsheet. No guessing."</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top; background-color:#ECFDF5;">
-                        <p><span class="step-num" style="display:inline-block; background-color:#2E844A; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">4</span> <strong>Click and hold on SA-0242</strong> on Harry Long's row. <strong>Drag it to Alan Reed's row.</strong> Release it at a similar time slot.</p>
+                        <p><span class="step-num" style="display:inline-block; background-color:#2E844A; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">4</span> <strong>Click and hold on SA-0393</strong> on Harry Long's row. <strong>Drag it to Alan Reed's row.</strong> Release it at a similar time slot.</p>
                         <p style="margin-top:8px; font-size:13px; color:#6b7280;"><strong>What should happen:</strong> The system reassigns the appointment. The Apex trigger fires and sets In Jeopardy = false. The red flag should <strong>disappear or turn green</strong> within a few seconds.</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top; background-color:#ECFDF5;">
-                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">SA-0242 on Alan Reed's row — flag cleared</span></div>
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">SA-0393 on Alan Reed's row — flag cleared</span></div>
                     </td>
                 </tr>
 
@@ -649,8 +649,8 @@
                     <td colspan="3" style="background-color:#FFF7ED; border:1px solid #d1d5db; border-left:4px solid #FE9339; padding:12px 14px;">
                         <strong style="color:#FE9339;">⚡ Troubleshooting — If Something Goes Wrong in Scene 3</strong>
                         <ul style="margin-top:8px; margin-left:16px; font-size:13px; color:#374151; list-style:disc;">
-                            <li><strong>Jeopardy flag doesn't appear on SA-0242:</strong> Verify that Harry Long (not Alan Reed) is the assigned resource. Navigate to <span class="nav-url">/lightning/r/ServiceAppointment/08pg8000000CO3NAAW/view</span> and check the Assigned Resources related list.</li>
-                            <li style="margin-top:6px;"><strong>Flag doesn't clear after drag-and-drop:</strong> The Apex trigger is hardcoded to specific record IDs (SA-0242 = 08pg8000000CO3NAAW, Alan Reed = 0Hng80000005ZdFCAU). If the IDs don't match, the trigger won't fire. As a fallback, manually edit the ServiceAppointment record and set "In Jeopardy" to false.</li>
+                            <li><strong>Jeopardy flag doesn't appear on SA-0393:</strong> Verify that Harry Long (not Alan Reed) is the assigned resource. Navigate to <span class="nav-url">/lightning/r/ServiceAppointment/08pg8000000Dzk1AAC/view</span> and check the Assigned Resources related list.</li>
+                            <li style="margin-top:6px;"><strong>Flag doesn't clear after drag-and-drop:</strong> The Apex trigger is hardcoded to specific record IDs (SA-0393 = 08pg8000000Dzk1AAC, Alan Reed = 0Hng80000005ZdFCAU). If the IDs don't match, the trigger won't fire. As a fallback, manually edit the ServiceAppointment record and set "In Jeopardy" to false.</li>
                             <li style="margin-top:6px;"><strong>Gantt chart doesn't show the appointment:</strong> Check the date range filter at the top of the Gantt — make sure it includes June 23, 2026. Also check the Service Territory filter → select "TP Mechanical - Cincinnati".</li>
                         </ul>
                     </td>
@@ -662,7 +662,7 @@
                         <strong style="color:#2E844A;">↓ Transition to Scene 4</strong><br>
                         <span class="talk-quote">"Think about what just happened in the last five minutes. Your dispatcher saw the right tech, the right certification, the right schedule — and resolved a potential $800 wasted truck roll in one drag-and-drop. Then the optimizer balanced the entire territory's schedule in seconds. Compare that to your team scrolling through 250 fields on a work order form, trying to figure out who's qualified and when they're available. That's the difference."</span><br><br>
                         <span class="talk-quote">"Great. So Alan is now dispatched with all the right qualifications. He gets to Omega's facility, opens his Field Service mobile app, and sees everything we just looked at — the work order, the asset details, the customer contact info. Now let me show you what happens when he's on-site and finds additional scope."</span><br>
-                        <span style="font-size:13px; color:#6b7280; margin-top:6px; display:inline-block;"><strong>Action:</strong> Navigate back to the Work Order page: <span class="nav-url">/lightning/r/WorkOrder/0WOg8000000DftNGAS/view</span></span>
+                        <span style="font-size:13px; color:#6b7280; margin-top:6px; display:inline-block;"><strong>Action:</strong> Navigate back to the Work Order page: <span class="nav-url">/lightning/r/WorkOrder/0WOg8000000FpevGAC/view</span></span>
                     </td>
                     <td style="background-color:#ECFDF5; border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
                         <div class="screenshot-placeholder" style="min-height:60px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here</div>
@@ -705,12 +705,12 @@
                         <p style="margin-top:10px;" class="talk-quote">"With Salesforce, Alan creates a scope add-on work order right from his phone, linked to the original job. Let me show you."</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
-                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">1</span> <strong>You should be on Work Order #00000323</strong> (from Scene 3 transition), or navigate to:</p>
-                        <span class="nav-url" style="font-family:monospace; font-size:11px; background-color:#f1f5f9; padding:2px 6px; border-radius:4px; color:#475569; word-break:break-all; display:inline-block; margin-top:4px;">/lightning/r/WorkOrder/0WOg8000000DftNGAS/view</span>
-                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">Point to the Service Appointments related list — SA-0242 should now show Alan Reed assigned, jeopardy cleared.</p>
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">1</span> <strong>You should be on Work Order #00000474</strong> (from Scene 3 transition), or navigate to:</p>
+                        <span class="nav-url" style="font-family:monospace; font-size:11px; background-color:#f1f5f9; padding:2px 6px; border-radius:4px; color:#475569; word-break:break-all; display:inline-block; margin-top:4px;">/lightning/r/WorkOrder/0WOg8000000FpevGAC/view</span>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">Point to the Service Appointments related list — SA-0393 should now show Alan Reed assigned, jeopardy cleared.</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
-                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">WO#00000323 with SA-0242 reassigned</span></div>
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">WO#00000474 with SA-0393 reassigned</span></div>
                     </td>
                 </tr>
 
@@ -721,8 +721,8 @@
                         <p style="margin-top:10px;" class="talk-quote">"Terry, you told us your billing cycle is too slow because scope changes get relayed by phone and re-entered into a different system. Here, Alan documented it in the field in two minutes, and your estimating team already has it in their queue. No phone call. No re-keying. No lost revenue."</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
-                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">2</span> <strong>Navigate to Work Order #00000325 — the scope add-on.</strong> Look for it in the Related Work Orders section on WO#00000323, or navigate directly to:</p>
-                        <span class="nav-url" style="font-family:monospace; font-size:11px; background-color:#f1f5f9; padding:2px 6px; border-radius:4px; color:#475569; word-break:break-all; display:inline-block; margin-top:4px;">/lightning/r/WorkOrder/0WOg8000000DfwbGAC/view</span>
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">2</span> <strong>Navigate to Work Order #00000475 — the scope add-on.</strong> Look for it in the Related Work Orders section on WO#00000474, or navigate directly to:</p>
+                        <span class="nav-url" style="font-family:monospace; font-size:11px; background-color:#f1f5f9; padding:2px 6px; border-radius:4px; color:#475569; word-break:break-all; display:inline-block; margin-top:4px;">/lightning/r/WorkOrder/0WOg8000000Fq1VGAS/view</span>
                         <p style="margin-top:8px; font-size:13px; color:#6b7280;">Point to these fields:</p>
                         <ul style="margin-top:4px; margin-left:16px; list-style:disc; font-size:13px; color:#6b7280;">
                             <li><strong>Subject:</strong> "WO 3 - Field Scope Add-on"</li>
@@ -734,7 +734,7 @@
                         </ul>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
-                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">WO#00000325 — Scope Add-on</span></div>
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">WO#00000475 — Scope Add-on</span></div>
                     </td>
                 </tr>
 
@@ -747,14 +747,14 @@
                         <p style="margin-top:10px;" class="talk-quote">"And if Terry needs to respond — 'Alan, go ahead and document the condenser condition with photos, I'll call the customer tomorrow' — that response shows up in the same thread. The dispatcher sees it. The estimating team sees it. Everyone is on the same page without a single phone call."</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
-                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">3</span> <strong>Scroll down on WO#00000325 (the scope add-on work order) to the Chatter feed section.</strong></p>
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">3</span> <strong>Scroll down on WO#00000475 (the scope add-on work order) to the Chatter feed section.</strong></p>
                         <p style="margin-top:8px; font-size:13px; color:#6b7280;">The Chatter feed is typically at the bottom of the record page or in a dedicated "Feed" tab in the console. If you see existing Chatter posts, point to them. If the feed is empty, narrate what it would look like:</p>
                         <p style="margin-top:8px; font-size:13px; color:#6b7280;"><strong>Option A (live demo):</strong> Click the Chatter compose box and type a short message like: <em>"@Terry — Customer wants to discuss full compressor replacement. Also noting condenser coil degradation. Requesting follow-up on scope and budget."</em> Post it. Then point to the posted message and say "This is now part of the permanent record."</p>
                         <p style="margin-top:8px; font-size:13px; color:#6b7280;"><strong>Option B (narrate only):</strong> Point to the Chatter compose area and describe what Alan would type. This is fine if you don't want to create demo data during a live demo — the verbal description is the important part.</p>
                         <p style="margin-top:10px; font-size:13px; color:#6b7280;"><strong>Why this matters:</strong> Terry mentioned in the June 5 dry run that he didn't clearly see how collaboration on work orders was handled. This step makes it explicit. The key message is: every conversation about a job stays attached to the job — no more orphaned emails, texts, or Post-it notes.</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
-                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Chatter feed on WO#00000325</span></div>
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Chatter feed on WO#00000475</span></div>
                     </td>
                 </tr>
 
@@ -805,12 +805,12 @@
                         <p style="margin-top:10px;" class="talk-quote">"Your Revenue Cloud SE can walk you through the detailed pricing and approval configuration. The key takeaway is: from Alan's phone in the field to a customer-ready quote, it's one connected process. No handoffs, no re-keying, no lost estimates."</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
-                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">1</span> <strong>Stay on WO#00000325</strong> (the scope add-on from Scene 4). No new navigation needed.</p>
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">1</span> <strong>Stay on WO#00000475</strong> (the scope add-on from Scene 4). No new navigation needed.</p>
                         <p style="margin-top:8px; font-size:13px; color:#6b7280;">Point to the Work Type ("Service Estimate / Quote") and the Asset link to reinforce that the quote will be tied to the specific piece of equipment.</p>
                         <p style="margin-top:8px; font-size:13px; color:#6b7280;">If there is a Quote or Opportunity related list visible on the page, point to it and explain that this is where the Revenue Cloud quote would be created. If there isn't one visible, that's fine — narrate the connection verbally.</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
-                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">WO#00000325 — Work Type & Asset fields</span></div>
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">WO#00000475 — Work Type & Asset fields</span></div>
                     </td>
                 </tr>
 
@@ -828,16 +828,16 @@
                         <p><span class="step-num" style="display:inline-block; background-color:#EA001E; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">2</span> <strong>Demonstrate mobile quote creation.</strong></p>
                         <p style="margin-top:8px; font-size:13px; color:#6b7280;"><strong>Option A (FSL Mobile App on phone/tablet):</strong> If you have the FSL mobile app available on a device or emulator:</p>
                         <ol style="margin-top:4px; margin-left:16px; list-style:decimal; font-size:13px; color:#6b7280;">
-                            <li>Open the work order (WO#00000323 or WO#00000325) on the mobile app</li>
+                            <li>Open the work order (WO#00000474 or WO#00000475) on the mobile app</li>
                             <li>Tap "Create Quote" or navigate to the Opportunity/Quote action</li>
                             <li>Select products from the catalog (e.g., "York Compressor Replacement")</li>
                             <li>Show the line items and pricing</li>
                             <li>Tap "Submit for Approval"</li>
                             <li>Show the approval notification going to the manager</li>
                         </ol>
-                        <p style="margin-top:8px; font-size:13px; color:#6b7280;"><strong>Option B (Desktop walkthrough):</strong> If no mobile device is available, stay on the desktop and narrate the mobile experience while showing the quote creation screen on WO#00000325:</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;"><strong>Option B (Desktop walkthrough):</strong> If no mobile device is available, stay on the desktop and narrate the mobile experience while showing the quote creation screen on WO#00000475:</p>
                         <ol style="margin-top:4px; margin-left:16px; list-style:decimal; font-size:13px; color:#6b7280;">
-                            <li>On WO#00000325, look for a "New Quote" or "Create Opportunity" button in the action bar</li>
+                            <li>On WO#00000475, look for a "New Quote" or "Create Opportunity" button in the action bar</li>
                             <li>Click it and walk through the quote creation flow</li>
                             <li>Explain "This same flow is available on Alan's phone — same catalog, same pricing, same approval routing"</li>
                         </ol>
@@ -1093,9 +1093,9 @@
                     <tbody style="color:#6b7280;">
                         <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Case (Emergency)</td><td style="padding:8px;">#00001368 — Chiller 1 tripping on high discharge pressure</td><td style="padding:8px; font-family:monospace; font-size:11px;">500g8000012765TAAQ</td><td style="padding:8px;"><span class="nav-url">/lightning/r/Case/500g8000012765TAAQ/view</span></td><td style="padding:8px;">1</td></tr>
                         <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Case (PM)</td><td style="padding:8px;">#00001369 — Q2 preventive maintenance</td><td style="padding:8px; font-family:monospace; font-size:11px;">500g80000127IA9AAM</td><td style="padding:8px;"><span class="nav-url">/lightning/r/Case/500g80000127IA9AAM/view</span></td><td style="padding:8px;">—</td></tr>
-                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">WO1 (Emergency)</td><td style="padding:8px;">#00000323 — Emergency Break-Fix</td><td style="padding:8px; font-family:monospace; font-size:11px;">0WOg8000000DftNGAS</td><td style="padding:8px;"><span class="nav-url">/lightning/r/WorkOrder/0WOg8000000DftNGAS/view</span></td><td style="padding:8px;">2, 4</td></tr>
-                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">WO3 (Scope Add-on)</td><td style="padding:8px;">#00000325 — Field Scope Add-on</td><td style="padding:8px; font-family:monospace; font-size:11px;">0WOg8000000DfwbGAC</td><td style="padding:8px;"><span class="nav-url">/lightning/r/WorkOrder/0WOg8000000DfwbGAC/view</span></td><td style="padding:8px;">4, 5</td></tr>
-                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Service Appointment</td><td style="padding:8px;">SA-0242 (June 23, 2:00 PM UTC)</td><td style="padding:8px; font-family:monospace; font-size:11px;">08pg8000000CO3NAAW</td><td style="padding:8px;"><span class="nav-url">/lightning/r/ServiceAppointment/08pg8000000CO3NAAW/view</span></td><td style="padding:8px;">3</td></tr>
+                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">WO1 (Emergency)</td><td style="padding:8px;">#00000474 — Emergency Break-Fix</td><td style="padding:8px; font-family:monospace; font-size:11px;">0WOg8000000FpevGAC</td><td style="padding:8px;"><span class="nav-url">/lightning/r/WorkOrder/0WOg8000000FpevGAC/view</span></td><td style="padding:8px;">2, 4</td></tr>
+                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">WO3 (Scope Add-on)</td><td style="padding:8px;">#00000475 — Field Scope Add-on</td><td style="padding:8px; font-family:monospace; font-size:11px;">0WOg8000000Fq1VGAS</td><td style="padding:8px;"><span class="nav-url">/lightning/r/WorkOrder/0WOg8000000Fq1VGAS/view</span></td><td style="padding:8px;">4, 5</td></tr>
+                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Service Appointment</td><td style="padding:8px;">SA-0393 (June 23, 2:00 PM UTC)</td><td style="padding:8px; font-family:monospace; font-size:11px;">08pg8000000Dzk1AAC</td><td style="padding:8px;"><span class="nav-url">/lightning/r/ServiceAppointment/08pg8000000Dzk1AAC/view</span></td><td style="padding:8px;">3</td></tr>
                         <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Asset (York Chiller)</td><td style="padding:8px;">York YK Centrifugal Chiller - Unit 1 (YK-2019-004812)</td><td style="padding:8px; font-family:monospace; font-size:11px;">02ig8000000mU74AAE</td><td style="padding:8px;"><span class="nav-url">/lightning/r/Asset/02ig8000000mU74AAE/view</span></td><td style="padding:8px;">2</td></tr>
                         <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Asset (Carrier Chiller)</td><td style="padding:8px;">Carrier 30XA Air-Cooled Chiller - Rooftop A</td><td style="padding:8px; font-family:monospace; font-size:11px;">02ig8000000mUmzAAE</td><td style="padding:8px;"><span class="nav-url">/lightning/r/Asset/02ig8000000mUmzAAE/view</span></td><td style="padding:8px;">2</td></tr>
                         <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Asset (Daikin AHU)</td><td style="padding:8px;">Daikin Applied AHU - Floor 3 Server Room</td><td style="padding:8px; font-family:monospace; font-size:11px;">02ig8000000mUobAAE</td><td style="padding:8px;"><span class="nav-url">/lightning/r/Asset/02ig8000000mUobAAE/view</span></td><td style="padding:8px;">2</td></tr>
