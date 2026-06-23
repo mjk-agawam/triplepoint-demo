@@ -1,5 +1,5 @@
 public with sharing class SA0242JeopardyAssignmentHandler {
-    private static final Id TARGET_APPOINTMENT_ID = '08pg8000000CO3NAAW';
+    private static final Id TARGET_APPOINTMENT_ID = '08pg8000000Dzk1AAC';
     private static final Id ALAN_RESOURCE_ID = '0Hng80000005ZdFCAU';
     private static final Id HARRY_RESOURCE_ID = '0Hng80000005ZdCCAU';
 
