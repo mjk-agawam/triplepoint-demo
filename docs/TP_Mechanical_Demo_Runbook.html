@@ -162,8 +162,27 @@
         <section class="bg-surface rounded-lg p-6 shadow-sm border border-gray-200">
             <h2 class="text-xl font-bold text-primary mb-4">Competitive Context — What We're Up Against</h2>
             <div class="text-gray-700 leading-relaxed text-[15px] space-y-3">
-                <p>TriplePoint is currently evaluating <strong>ServiceMax</strong> alongside Salesforce. Some of their OpCos already use ServiceMax today. The PE sponsor (and Terry) want to see whether Salesforce can provide a single-platform alternative that covers service, quoting, and analytics — vs. running ServiceMax for field service alongside a separate CRM and quoting tool.</p>
-                <p><strong>Key differentiation to emphasize:</strong> Salesforce provides a single platform (Service Cloud + Field Service + Revenue Cloud + Analytics) where ServiceMax requires bolt-on integrations for CRM, quoting, and analytics. For a roll-up doing acquisitions, the "one platform" story is critical — every new OpCo slots into the same system vs. another integration project.</p>
+                <p>TriplePoint is evaluating multiple vendors. Based on the June 5 dry run with Terry Vanecek, here is the competitive landscape and how to counter each:</p>
+
+                <div class="bg-danger/5 border-l-4 border-danger rounded p-3 mt-3">
+                    <p><strong>ServiceMax</strong> — Some OpCos already use ServiceMax today. The PE sponsor (and Terry) want to see whether Salesforce can provide a single-platform alternative that covers service, quoting, and analytics — vs. running ServiceMax for field service alongside a separate CRM and quoting tool.</p>
+                    <p class="mt-2"><strong>Counter:</strong> Salesforce provides a single platform (Service Cloud + Field Service + Revenue Cloud + Analytics) where ServiceMax requires bolt-on integrations for CRM, quoting, and analytics. For a roll-up doing acquisitions, the "one platform" story is critical — every new OpCo slots into the same system vs. another integration project.</p>
+                </div>
+
+                <div class="bg-warning/5 border-l-4 border-warning rounded p-3 mt-3">
+                    <p><strong>BuildOps</strong> — Doing an on-site demo in Texas. Terry's assessment from the dry run: <em>"They're nervous they're not going to be a player going forward. They're showing what they're going to be doing in the future, not what they're able to do today."</em> Terry is not impressed by their forward roadmap — he wants to see working product today.</p>
+                    <p class="mt-2"><strong>Counter:</strong> Lean into Salesforce's production-ready capabilities. Every single thing shown in this demo is live in the demo org — not a mockup, not a roadmap item. Make this explicit: <em>"Everything you're seeing today is live, in production, right now. This isn't a roadmap demo."</em></p>
+                </div>
+
+                <div class="bg-accent/5 border-l-4 border-accent rounded p-3 mt-3">
+                    <p><strong>XOI (AI Bolt-On)</strong> — Some TP Mechanical OpCos are asking about XOI as an AI add-on to their current platform. Terry is skeptical: <em>"That's one more thing to put in place."</em></p>
+                    <p class="mt-2"><strong>Counter:</strong> Agentforce is native to the Salesforce platform — not a bolt-on. No separate vendor, no separate contract, no integration complexity. When you show Agentforce on mobile (Scene 5), call this out explicitly.</p>
+                </div>
+
+                <div class="bg-muted/5 border-l-4 border-muted rounded p-3 mt-3">
+                    <p><strong>IFS (Current Platform)</strong> — TP Mechanical's existing system. Key pain point Terry identified: 250+ options/fields on work orders — information overload for techs. This is the primary adoption complaint from the field.</p>
+                    <p class="mt-2"><strong>Counter:</strong> The FSL mobile app and role-based page layouts directly address this. Use IFS's complexity as the foil throughout the demo. When showing the dispatcher console or mobile app, contrast it explicitly: <em>"Compare this to scrolling through 250 fields trying to find what you need."</em></p>
+                </div>
             </div>
         </section>
 
@@ -414,13 +433,30 @@
                     </td>
                 </tr>
 
-                <!-- Step 5: Service Contract -->
+                <!-- Step 5: Asset Install Base Caveat — IMPORTANT: Set Expectations -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"Now, I want to be upfront about something. We know that TP Mechanical doesn't have a complete asset registry today — and that's totally normal. Most of the commercial HVAC companies we work with start in the same place. Here's the good news: Salesforce is designed for this. You don't need to have every serial number and every install date loaded on day one."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"You can start simple — just the account name and the equipment type. Then over time, as your techs go out on jobs, they enrich the records. 'Hey, I was at Omega today, here's the serial number on the York chiller, here's the install date from the nameplate.' Each visit builds the database. Within six months, you'll have an asset registry that nobody had to manually compile — the field built it for you."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"The asset records you're seeing here are what it looks like after that ramp-up period. It's aspirational but achievable — and the platform is ready for it from day one."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">5</span> <strong>Stay on the Asset page.</strong> No navigation needed — this is a verbal moment.</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">This step addresses a concern Terry raised in the June 5 dry run: his team doesn't have good asset records today. By acknowledging it proactively, you prevent the broader team from dismissing the demo as "that's nice but we don't have the data." Frame the asset registry as a journey, not a prerequisite.</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;"><strong>If Terry or the team pushes back:</strong> Mention that Salesforce has bulk import tools and that the SI partner (Rob Hansen's team) can help with an initial data load from whatever spreadsheets or IFS exports they have today.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Asset page (same view)</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 6: Service Contract -->
                 <tr>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
                         <p class="talk-quote">"Before the truck rolls, your dispatcher already knows this customer is under an active full-coverage PM agreement. No need to call the office and ask 'are they covered?' The contract is right here — and look at the entitlements."</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
-                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">5</span> <strong>Navigate back to the Work Order</strong> (browser Back button), then look for the Service Contract section, or navigate directly to:</p>
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">6</span> <strong>Navigate back to the Work Order</strong> (browser Back button), then look for the Service Contract section, or navigate directly to:</p>
                         <span class="nav-url" style="font-family:monospace; font-size:11px; background-color:#f1f5f9; padding:2px 6px; border-radius:4px; color:#475569; word-break:break-all; display:inline-block; margin-top:4px;">/lightning/r/ServiceContract/810g800003r3KyvAAE/view</span>
                         <p style="margin-top:8px; font-size:13px; color:#6b7280;">Point to these fields:</p>
                         <ul style="margin-top:4px; margin-left:16px; list-style:disc; font-size:13px; color:#6b7280;">
@@ -435,13 +471,13 @@
                     </td>
                 </tr>
 
-                <!-- Step 6: Entitlements -->
+                <!-- Step 7: Entitlements -->
                 <tr>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
                         <p class="talk-quote">"Each piece of equipment has its own entitlement under this contract. The York chiller — the one we're servicing today — is covered. The Carrier chiller on the rooftop is covered. The Daikin air handler on the third floor is covered. Your agent sees this instantly. Terry, you mentioned wanting to track which assets consume the most service margin — it starts right here, because every work order is linked to a specific asset under a specific contract."</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
-                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">6</span> <strong>Scroll down to the Entitlements related list</strong> on the Service Contract page. You should see three entitlements:</p>
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">7</span> <strong>Scroll down to the Entitlements related list</strong> on the Service Contract page. You should see three entitlements:</p>
                         <ul style="margin-top:8px; margin-left:16px; list-style:disc; font-size:13px; color:#6b7280;">
                             <li><strong>York YK Chiller - PM Coverage</strong></li>
                             <li><strong>Carrier 30XA Chiller - PM Coverage</strong></li>
@@ -568,6 +604,46 @@
                     </td>
                 </tr>
 
+                <!-- Step 6: Schedule Optimization -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"Now let me show you one more thing on this dispatch board that's going to save your dispatchers a ton of time. Watch this — I'm going to run the schedule optimizer."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"What this does is look at every technician's schedule across the territory and do two things: first, it fixes any overlaps — if someone accidentally booked two jobs at the same time, it resolves the conflict. Second, it fills gaps — if a tech has a two-hour window between jobs and there's an unscheduled appointment nearby, the optimizer slots it in based on proximity, skills, and customer priority."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"Think about what your dispatchers do today. They're looking at a whiteboard or a spreadsheet, trying to mentally juggle 15 technicians and 40 jobs. This does that calculation in seconds. And the optimizer respects your business rules — customer-first scheduling, golden slots, skill requirements, travel time. It's not just shuffling blocks around; it's making intelligent decisions."</p>
+                        <p style="margin-top:10px;" class="talk-quote"><strong>"And here's the important part — this optimization engine is included in the Field Service license. No add-on, no extra cost, no separate vendor. It's part of the platform."</strong></p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">6</span> <strong>In the Dispatcher Console, click the "Optimize" button</strong> in the top toolbar of the Gantt chart.</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">The Optimize button may be labeled "Optimize" or show as a lightning bolt icon, depending on the org configuration. Click it and select the optimization scope (e.g., "Fix Overlaps" or "Fill Schedules" or both).</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;"><strong>What should happen:</strong> The Gantt chart will animate briefly as appointments are reshuffled. Overlapping blocks will separate, and some unscheduled appointments from the left panel may get assigned to technician rows. Wait 5-10 seconds for the optimization to complete.</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;"><strong>Important:</strong> Terry asked about this in the June 5 dry run — "Is this included in the license?" The answer is <strong>yes, it's included with Field Service Lightning.</strong> Make sure to say this out loud. His broader team will have the same question.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Gantt after optimization</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 7: Simplified Page Layout — Address UI Complexity Concern -->
+                <tr style="background-color:#EBF5FF;">
+                    <td style="border:1px solid #d1d5db; border-left:4px solid #0176D3; padding:12px 14px; vertical-align:top; background-color:#EBF5FF;">
+                        <p class="talk-quote"><strong>🎯 IMPORTANT: Address the UI Complexity Concern</strong></p>
+                        <p class="talk-quote" style="margin-top:8px;">"Now, before we move on, I want to address something that I know is on your mind. You've seen a lot of information on these screens — the case page, the work order, the dispatch board. And you might be thinking, 'My dispatchers are going to look at this and say it's too complicated.'"</p>
+                        <p style="margin-top:10px;" class="talk-quote">"Here's the thing — what I've been showing you is the <strong>admin view</strong>. It has every field, every related list, every component — because as a service director, you want full visibility. But your dispatchers don't see this."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"Salesforce uses something called role-based page layouts. That means we configure what each person sees based on their job. A dispatcher gets four or five components: the appointment list, the Gantt chart, the customer info, and the skill match. That's it. No extra tabs, no extra fields, no scrolling through 250 options like you do in IFS today."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"A service manager gets a different view — more analytics, more history, more context. A field technician on the mobile app gets the simplest view of all — just the work order, the checklist, and the customer signature. Every role sees exactly what they need and nothing more."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"This is how we solve the adoption problem. We don't make everyone learn the whole system. We give each person a purpose-built view of the system that's relevant to their job. And if someone needs a field added or removed, it's a drag-and-drop configuration change — not a custom development project."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top; background-color:#EBF5FF;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">7</span> <strong>Stay on the Dispatcher Console.</strong> This is primarily a verbal moment, but you can reinforce it visually:</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;"><strong>Option A (if simplified layout prepared):</strong> Switch to a "Dispatcher" user profile or app page that shows a stripped-down version of the console with fewer components. Gesture at the cleaner layout and say "This is what your dispatcher sees." Then switch back to the admin view.</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;"><strong>Option B (if no simplified layout):</strong> Gesture at the Gantt chart area specifically and say "Your dispatcher lives here — the appointment list and the Gantt. They don't need to navigate to the case page, the asset page, or the contract page. That context is there if they need it, but their day-to-day is right here on this one screen."</p>
+                        <p style="margin-top:10px; font-size:13px; color:#6b7280;"><strong>Why this matters:</strong> Terry's #1 concern in the June 5 dry run was UI complexity. Rob Hansen (SI Partner) reinforced this — adoption resistance is real. This step directly counters the "Salesforce is too complicated" narrative. Do not skip this. Take your time here and let it land.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top; background-color:#EBF5FF;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Simplified dispatcher view (if available) or annotated Gantt chart</span></div>
+                    </td>
+                </tr>
+
                 <!-- Troubleshooting -->
                 <tr class="trouble-row">
                     <td colspan="3" style="background-color:#FFF7ED; border:1px solid #d1d5db; border-left:4px solid #FE9339; padding:12px 14px;">
@@ -584,6 +660,7 @@
                 <tr class="transition-row">
                     <td colspan="2" style="background-color:#ECFDF5; border:1px solid #d1d5db; border-left:4px solid #2E844A; padding:12px 14px;">
                         <strong style="color:#2E844A;">↓ Transition to Scene 4</strong><br>
+                        <span class="talk-quote">"Think about what just happened in the last five minutes. Your dispatcher saw the right tech, the right certification, the right schedule — and resolved a potential $800 wasted truck roll in one drag-and-drop. Then the optimizer balanced the entire territory's schedule in seconds. Compare that to your team scrolling through 250 fields on a work order form, trying to figure out who's qualified and when they're available. That's the difference."</span><br><br>
                         <span class="talk-quote">"Great. So Alan is now dispatched with all the right qualifications. He gets to Omega's facility, opens his Field Service mobile app, and sees everything we just looked at — the work order, the asset details, the customer contact info. Now let me show you what happens when he's on-site and finds additional scope."</span><br>
                         <span style="font-size:13px; color:#6b7280; margin-top:6px; display:inline-block;"><strong>Action:</strong> Navigate back to the Work Order page: <span class="nav-url">/lightning/r/WorkOrder/0WOg8000000DftNGAS/view</span></span>
                     </td>
@@ -661,11 +738,31 @@
                     </td>
                 </tr>
 
+                <!-- Step 3: Work Order Collaboration via Chatter -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"Now here's something that comes up a lot in service operations — collaboration. Today, when Alan finds additional scope in the field, how does he communicate that to the service manager or the estimating team? A phone call? A text? An email that gets buried in someone's inbox? There's no record of the conversation attached to the job."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"Watch this. Right here on the work order, Alan can post a note to the Chatter feed. He tags his service manager — let's say it's you, Terry — and writes: 'Customer wants to discuss a full compressor replacement. Condenser coils and control board firmware also need attention. Can you follow up with the customer on timing and budget?'"</p>
+                        <p style="margin-top:10px;" class="talk-quote">"That note is now permanently attached to this work order. When Terry opens the record, he sees the conversation. When the estimating team pulls up the quote, they see the context. When somebody six months from now is looking at the service history on this chiller, that note is still there. No hunting through email threads. No 'who said what about which job.' It's all in one place."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"And if Terry needs to respond — 'Alan, go ahead and document the condenser condition with photos, I'll call the customer tomorrow' — that response shows up in the same thread. The dispatcher sees it. The estimating team sees it. Everyone is on the same page without a single phone call."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">3</span> <strong>Scroll down on WO#00000325 (the scope add-on work order) to the Chatter feed section.</strong></p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">The Chatter feed is typically at the bottom of the record page or in a dedicated "Feed" tab in the console. If you see existing Chatter posts, point to them. If the feed is empty, narrate what it would look like:</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;"><strong>Option A (live demo):</strong> Click the Chatter compose box and type a short message like: <em>"@Terry — Customer wants to discuss full compressor replacement. Also noting condenser coil degradation. Requesting follow-up on scope and budget."</em> Post it. Then point to the posted message and say "This is now part of the permanent record."</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;"><strong>Option B (narrate only):</strong> Point to the Chatter compose area and describe what Alan would type. This is fine if you don't want to create demo data during a live demo — the verbal description is the important part.</p>
+                        <p style="margin-top:10px; font-size:13px; color:#6b7280;"><strong>Why this matters:</strong> Terry mentioned in the June 5 dry run that he didn't clearly see how collaboration on work orders was handled. This step makes it explicit. The key message is: every conversation about a job stays attached to the job — no more orphaned emails, texts, or Post-it notes.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Chatter feed on WO#00000325</span></div>
+                    </td>
+                </tr>
+
                 <!-- Transition -->
                 <tr class="transition-row">
                     <td colspan="2" style="background-color:#ECFDF5; border:1px solid #d1d5db; border-left:4px solid #2E844A; padding:12px 14px;">
                         <strong style="color:#2E844A;">↓ Transition to Scene 5</strong><br>
-                        <span class="talk-quote">"This scope add-on feeds directly into the quoting workflow. The compressor replacement needs to be priced, approved, and sent to the customer. Let me briefly show you how that connects to Revenue Cloud."</span>
+                        <span class="talk-quote">"This scope add-on feeds directly into the quoting workflow. The compressor replacement needs to be priced, approved, and sent to the customer. Let me briefly show you how that connects to Revenue Cloud — and I'm also going to show you something Terry specifically asked to see: quote creation from the field."</span>
                     </td>
                     <td style="background-color:#ECFDF5; border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
                         <div class="screenshot-placeholder" style="min-height:60px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here</div>
@@ -717,10 +814,44 @@
                     </td>
                 </tr>
 
+                <!-- Step 2: Mobile Quote Creation — TERRY SPECIFICALLY REQUESTED THIS -->
+                <tr style="background-color:#FEF2F2;">
+                    <td style="border:1px solid #d1d5db; border-left:4px solid #EA001E; padding:12px 14px; vertical-align:top; background-color:#FEF2F2;">
+                        <p class="talk-quote"><strong>⭐ MUST-SHOW: Terry explicitly asked for this in the dry run.</strong></p>
+                        <p class="talk-quote" style="margin-top:8px;">"Terry, you told us in our earlier conversation that your team lost the ability to create quotes from the field when you moved to your current platform. That's a big deal — because when a tech is on-site and sees an opportunity, the fastest path to revenue is to capture it right there, not write it on a notepad and hope the office follows up."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"Let me show you how this works on the mobile app. Alan is on-site at Omega. He's just diagnosed the compressor issue and he knows this customer needs a replacement. He opens the quoting workflow right from his phone."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"He selects the compressor replacement from the product catalog — the same catalog with the same pricing rules and markup percentages that your estimating team uses in the office. He doesn't have to guess at pricing or call someone for a number. The catalog does the math."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"He adds the condenser coil cleaning and the firmware update as line items. He sees the total. He hits 'Submit for Approval.' That quote goes directly to the right manager based on your approval rules — dollar threshold, margin percentage, whatever governance you've set up. The manager gets a notification on their phone, reviews it, approves or rejects, and the customer gets a professional quote document — all while Alan is still on-site."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"That's the difference between leaving revenue on the table and capturing it in real-time. Your tech didn't have to call the office. Nobody had to re-enter data. The quote is linked to the work order, the asset, and the customer — the full chain is preserved."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top; background-color:#FEF2F2;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#EA001E; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">2</span> <strong>Demonstrate mobile quote creation.</strong></p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;"><strong>Option A (FSL Mobile App on phone/tablet):</strong> If you have the FSL mobile app available on a device or emulator:</p>
+                        <ol style="margin-top:4px; margin-left:16px; list-style:decimal; font-size:13px; color:#6b7280;">
+                            <li>Open the work order (WO#00000323 or WO#00000325) on the mobile app</li>
+                            <li>Tap "Create Quote" or navigate to the Opportunity/Quote action</li>
+                            <li>Select products from the catalog (e.g., "York Compressor Replacement")</li>
+                            <li>Show the line items and pricing</li>
+                            <li>Tap "Submit for Approval"</li>
+                            <li>Show the approval notification going to the manager</li>
+                        </ol>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;"><strong>Option B (Desktop walkthrough):</strong> If no mobile device is available, stay on the desktop and narrate the mobile experience while showing the quote creation screen on WO#00000325:</p>
+                        <ol style="margin-top:4px; margin-left:16px; list-style:decimal; font-size:13px; color:#6b7280;">
+                            <li>On WO#00000325, look for a "New Quote" or "Create Opportunity" button in the action bar</li>
+                            <li>Click it and walk through the quote creation flow</li>
+                            <li>Explain "This same flow is available on Alan's phone — same catalog, same pricing, same approval routing"</li>
+                        </ol>
+                        <p style="margin-top:10px; font-size:13px; color:#6b7280;"><strong>Why this is critical:</strong> Terry specifically said in the dry run that his team "lost the ability to do" quote creation from the field. This is a <strong>must-demonstrate</strong> moment for the broader team demo. Do not skip this.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top; background-color:#FEF2F2;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Mobile quote creation — product catalog and submit</span></div>
+                    </td>
+                </tr>
+
                 <!-- Presenter note -->
                 <tr>
                     <td colspan="3" style="background-color:#F9FAFB; border:1px solid #d1d5db; padding:12px 14px; font-size:13px; color:#706E6B;">
-                        <strong>Presenter Note:</strong> This scene is intentionally brief. If Terry asks detailed questions about pricing, approval routing, or CPQ configuration, this is a good place to tag in the Revenue Cloud SE or say <em>"We'll schedule a deep-dive on the Revenue Cloud quoting workflow as a next step."</em> Don't get pulled into CPQ details unless you're comfortable covering them.
+                        <strong>Presenter Note:</strong> If Terry asks detailed questions about pricing, approval routing, or CPQ configuration, this is a good place to tag in the Revenue Cloud SE (John Rozsits) or say <em>"John can walk you through the detailed pricing and approval configuration — the key takeaway is that your tech in the field has the same catalog and pricing as your estimating team in the office."</em> Don't get pulled into CPQ details unless you're comfortable covering them.
                     </td>
                 </tr>
 
@@ -728,7 +859,7 @@
                 <tr class="transition-row">
                     <td colspan="2" style="background-color:#ECFDF5; border:1px solid #d1d5db; border-left:4px solid #2E844A; padding:12px 14px;">
                         <strong style="color:#2E844A;">↓ Transition to Scene 6</strong><br>
-                        <span class="talk-quote">"Now let me show you the part I think you'll find most valuable, Terry. Everything we've just walked through — every case, every work order, every appointment, every tech hour — it all feeds into real-time dashboards. You mentioned you want to see technician utilization and margin metrics. Let me show you what that looks like."</span><br>
+                        <span class="talk-quote">"Now let me show you the part I think you'll find most valuable, Terry. Everything we've just walked through — every case, every work order, every appointment, every tech hour, every quote — it all feeds into real-time dashboards. You mentioned you want to see technician utilization and margin metrics. Let me show you what that looks like."</span><br>
                         <span style="font-size:13px; color:#6b7280; margin-top:6px; display:inline-block;"><strong>Action:</strong> Switch to your pre-loaded Dashboard tab, or navigate to: <span class="nav-url">/lightning/r/Dashboard/01Zg8000001WqSjEAK/view</span></span>
                     </td>
                     <td style="background-color:#ECFDF5; border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
@@ -867,7 +998,9 @@
                         <strong style="color:#032D60;">🎯 Key Closing Point — The Acquisition Scalability Story</strong><br><br>
                         <span class="talk-quote">"Terry, here's why this matters for TriplePoint specifically. You told us you're running 8 OpCos today, and every acquisition brings a different spreadsheet, a different way of tracking metrics, a different definition of 'utilization.' When your PE sponsor asks 'what's our overall technician utilization across TP Mechanical?' you have to spend days compiling it."</span><br><br>
                         <span class="talk-quote">"With Salesforce, every OpCo runs on the same platform. Same data model, same metrics definitions, same dashboards. When you acquire company number 9, they slot right in. Their techs, their territories, their appointments — it all flows into this same dashboard. You go from weeks of manual compilation to a live, real-time view across the entire organization."</span><br><br>
-                        <span class="talk-quote">"That's not just an operational improvement — that's a platform play. And it's what your PE sponsor is looking for to justify the investment."</span>
+                        <span class="talk-quote">"That's not just an operational improvement — that's a platform play. And it's what your PE sponsor is looking for to justify the investment."</span><br><br>
+                        <span class="talk-quote"><strong>"And I want to make one more point. Everything you've seen today is live. This isn't a roadmap demo — we're not showing you what we're going to be doing in the future. This is what your team starts using on day one. The AI phone intake, the jeopardy flag, the schedule optimizer, the mobile quoting, the dashboard — all of it is production-ready, right now."</strong></span><br><br>
+                        <span class="talk-quote">"And the AI capabilities — the Agentforce intelligence you saw on the mobile app, the call intake automation — that's built into the platform. It's not a bolt-on from a separate vendor. You don't need to go buy another product, sign another contract, and manage another integration. It's one platform, one vendor, one relationship."</span>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top; background-color:#EBF5FF;">
                         <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Dashboard with OpCo context</span></div>
@@ -899,7 +1032,7 @@
                 <!-- Recap -->
                 <tr>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
-                        <p class="talk-quote">"Let me recap what we just walked through. A chiller emergency came in from Omega. We went from a phone call to a tracked case in seconds. The case generated a work order linked to the exact piece of equipment, the service contract, and the entitlements. The dispatcher saw — before the truck rolled — that the assigned tech didn't have the right certification, and reassigned to a qualified tech in one drag-and-drop. The tech got on-site with full context, diagnosed the issue, and created a scope add-on for a compressor replacement that fed directly into the quoting workflow. And everything — every case, work order, appointment, and tech hour — rolled up into a real-time executive dashboard."</p>
+                        <p class="talk-quote">"Let me recap what we just walked through. A chiller emergency came in from Omega. We went from a phone call to a tracked case in seconds. The case generated a work order linked to the exact piece of equipment, the service contract, and the entitlements. The dispatcher saw — before the truck rolled — that the assigned tech didn't have the right certification, and reassigned to a qualified tech in one drag-and-drop. The optimizer balanced the entire territory's schedule in seconds — included in the license, no extra cost. The tech got on-site with full context, diagnosed the issue, created a scope add-on, and collaborated with his service manager through Chatter — all tracked on the work order. He then created a quote directly from his phone using the same catalog and pricing as the estimating team, and submitted it for approval while still on-site. And everything — every case, work order, appointment, quote, and tech hour — rolled up into a real-time executive dashboard."</p>
                         <p style="margin-top:10px;" class="talk-quote">"Today at TP Mechanical, that same scenario involves a spreadsheet, three phone calls, a filing cabinet, a separate quoting tool, and a month-end metrics compilation. Salesforce replaces all of that with one connected platform."</p>
                     </td>
                     <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
@@ -908,9 +1041,15 @@
                         <ul style="margin-top:6px; margin-left:16px; list-style:disc; font-size:13px; color:#6b7280;">
                             <li>✓ Single system of record</li>
                             <li>✓ Skill-based scheduling with jeopardy</li>
-                            <li>✓ Asset 360</li>
+                            <li>✓ Schedule optimization (included in license)</li>
+                            <li>✓ Role-based page layouts (adoption-friendly UI)</li>
+                            <li>✓ Asset 360 (build over time, not day-one prerequisite)</li>
+                            <li>✓ Work order collaboration via Chatter</li>
+                            <li>✓ Mobile quote creation from the field</li>
                             <li>✓ Field-to-quote pipeline</li>
                             <li>✓ Real-time executive dashboards</li>
+                            <li>✓ Native AI (Agentforce) — not a bolt-on</li>
+                            <li>✓ Production-ready today — not a roadmap</li>
                             <li>✓ Acquisition-ready platform</li>
                         </ul>
                     </td>
