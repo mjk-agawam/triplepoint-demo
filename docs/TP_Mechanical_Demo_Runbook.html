@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TP Mechanical — Field Service Demo Runbook</title>
+    <script src="https://assets.meshmesh.io/system/tailwindcss-browser-4.js"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --color-primary: #032D60;
+            --color-accent: #0176D3;
+            --color-success: #2E844A;
+            --color-warning: #FE9339;
+            --color-danger: #EA001E;
+            --color-muted: #706E6B;
+            --color-light: #F3F3F3;
+            --color-surface: #FFFFFF;
+        }
+        .scene-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .scene-table th, .scene-table td {
+            border: 1px solid #d1d5db;
+            padding: 12px 14px;
+            vertical-align: top;
+        }
+        .scene-table th {
+            background-color: #f3f4f6;
+            font-weight: 600;
+            text-align: left;
+        }
+        .scene-table .col-talk { width: 40%; }
+        .scene-table .col-click { width: 35%; }
+        .scene-table .col-screen { width: 25%; }
+        .scene-table .scene-header-row td {
+            background-color: #032D60;
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 15px;
+            padding: 14px;
+        }
+        .scene-table .scene-context-row td {
+            background-color: #EBF5FF;
+            font-size: 13px;
+            color: #374151;
+        }
+        .scene-table .transition-row td {
+            background-color: #ECFDF5;
+            border-left: 4px solid #2E844A;
+        }
+        .scene-table .trouble-row td {
+            background-color: #FFF7ED;
+            border-left: 4px solid #FE9339;
+        }
+        .scene-table .highlight-row td {
+            background-color: #FEF2F2;
+            border-left: 4px solid #EA001E;
+        }
+        .screenshot-placeholder {
+            min-height: 120px;
+            border: 2px dashed #d1d5db;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #9ca3af;
+            font-style: italic;
+            font-size: 12px;
+            text-align: center;
+            padding: 10px;
+        }
+        .nav-url {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, monospace;
+            font-size: 11px;
+            background-color: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #475569;
+            word-break: break-all;
+            display: inline-block;
+            margin-top: 4px;
+        }
+        .talk-quote {
+            color: #0176D3;
+            font-style: italic;
+        }
+        .step-num {
+            display: inline-block;
+            background-color: #0176D3;
+            color: white;
+            font-size: 11px;
+            font-weight: 700;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 22px;
+            margin-right: 6px;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body class="bg-light text-gray-900 font-sans">
+
+    <!-- Header -->
+    <header class="bg-primary text-white py-8 px-8">
+        <div class="max-w-7xl mx-auto">
+            <p class="text-sm uppercase tracking-widest text-blue-200 mb-1">Salesforce Field Service Lightning</p>
+            <h1 class="text-3xl font-bold">TP Mechanical — Complete Demo Runbook</h1>
+            <p class="text-blue-100 mt-2 text-lg">Click-by-Click Script &bull; 3-Column Table Format</p>
+            <div class="grid grid-cols-3 gap-4 mt-6 text-sm">
+                <div class="bg-white/10 rounded-lg p-3">
+                    <p class="text-blue-200 text-xs uppercase">Demo Date</p>
+                    <p class="text-white font-semibold">June 23, 2026</p>
+                </div>
+                <div class="bg-white/10 rounded-lg p-3">
+                    <p class="text-blue-200 text-xs uppercase">Primary Audience</p>
+                    <p class="text-white font-semibold">Terry Vanecek, Service Director + TP Leadership</p>
+                </div>
+                <div class="bg-white/10 rounded-lg p-3">
+                    <p class="text-blue-200 text-xs uppercase">Duration</p>
+                    <p class="text-white font-semibold">~30 minutes (6 scenes)</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto py-8 px-8 space-y-10">
+
+        <!-- BACKGROUND -->
+        <section class="bg-surface rounded-lg p-6 shadow-sm border border-gray-200">
+            <h2 class="text-xl font-bold text-primary mb-4">Background — Who Is TriplePoint and Why Are We Demoing?</h2>
+            <div class="space-y-4 text-gray-700 leading-relaxed text-[15px]">
+                <p><strong>TriplePoint MEP</strong> is a PE-backed roll-up of mechanical, electrical, and plumbing (MEP) contractors. They have approximately $534M in combined revenue across 8 operating companies (OpCos). They are headquartered in the Cincinnati, OH area. Their private equity sponsor is driving them to standardize operations across all OpCos to create a scalable platform for future acquisitions.</p>
+                <p><strong>Terry Vanecek</strong> is the Service Director for TP Mechanical (the mechanical/HVAC arm). He manages field technicians across the Cincinnati metro area who service commercial HVAC equipment — primarily chillers, air handlers, and refrigeration systems for large facilities like data centers, hospitals, and commercial buildings. Terry's team operates under PM (preventive maintenance) service agreements with their customers.</p>
+
+                <h3 class="font-semibold text-gray-900 mt-4">Terry's Pain Points (From Discovery Calls)</h3>
+                <p>These are the specific problems Terry described in his own words during discovery. The demo is designed to address each one:</p>
+                <div class="grid grid-cols-1 gap-3 mt-3">
+                    <div class="bg-danger/5 border-l-4 border-danger rounded p-3">
+                        <p><strong>"We've sent unqualified techs to jobs."</strong> — Dispatchers don't know who holds EPA 608 certification (required for refrigerant handling on large chillers). They find out when the tech is already on-site and can't complete the work. Wasted truck roll = $800+ per incident.</p>
+                    </div>
+                    <div class="bg-danger/5 border-l-4 border-danger rounded p-3">
+                        <p><strong>"Our billing cycle is too slow."</strong> — Work gets completed in the field, but the paperwork chain between field → office → estimating → invoicing is disconnected. Scope changes discovered on-site get relayed by phone, then re-entered into a separate quoting system. Revenue leaks through the cracks.</p>
+                    </div>
+                    <div class="bg-danger/5 border-l-4 border-danger rounded p-3">
+                        <p><strong>"I can't see technician utilization or margin by technician."</strong> — Terry has no real-time dashboard. He manually compiles metrics from spreadsheets at month-end. When he acquires a new OpCo, they bring a completely different spreadsheet. There are no standardized KPIs across the 8 operating companies.</p>
+                    </div>
+                    <div class="bg-danger/5 border-l-4 border-danger rounded p-3">
+                        <p><strong>"We're juggling between ServiceMax, spreadsheets, and phone calls."</strong> — There is no single system of record. Case intake, dispatch, field notes, and quoting live in separate tools with no integration between them.</p>
+                    </div>
+                </div>
+
+                <h3 class="font-semibold text-gray-900 mt-4">Demo Story Arc</h3>
+                <p>The demo follows a single realistic scenario end-to-end: <strong>Omega, Inc.</strong> (a managed-services customer of TP Mechanical) calls in because their York 500-ton centrifugal chiller is tripping on high discharge pressure at their Cincinnati data center. The server room is at risk. We follow the job from case intake through dispatch, field diagnosis, replacement quote, and up to the executive KPI dashboard — showing how Salesforce Field Service replaces every spreadsheet and phone call in that chain.</p>
+            </div>
+        </section>
+
+        <!-- COMPETITIVE CONTEXT -->
+        <section class="bg-surface rounded-lg p-6 shadow-sm border border-gray-200">
+            <h2 class="text-xl font-bold text-primary mb-4">Competitive Context — What We're Up Against</h2>
+            <div class="text-gray-700 leading-relaxed text-[15px] space-y-3">
+                <p>TriplePoint is currently evaluating <strong>ServiceMax</strong> alongside Salesforce. Some of their OpCos already use ServiceMax today. The PE sponsor (and Terry) want to see whether Salesforce can provide a single-platform alternative that covers service, quoting, and analytics — vs. running ServiceMax for field service alongside a separate CRM and quoting tool.</p>
+                <p><strong>Key differentiation to emphasize:</strong> Salesforce provides a single platform (Service Cloud + Field Service + Revenue Cloud + Analytics) where ServiceMax requires bolt-on integrations for CRM, quoting, and analytics. For a roll-up doing acquisitions, the "one platform" story is critical — every new OpCo slots into the same system vs. another integration project.</p>
+            </div>
+        </section>
+
+        <!-- PRE-DEMO RESET -->
+        <section class="bg-warning/10 border-l-4 border-warning rounded-lg p-6">
+            <h2 class="text-lg font-bold text-gray-900 mb-2">⚠️ Pre-Demo Reset Checklist — Run These Steps BEFORE Every Demo</h2>
+            <p class="text-sm text-muted mb-4">The demo scenario requires specific starting conditions. If you've run the demo before, these steps reset the org back to the correct starting state. If this is the first run on a fresh day, verify each item anyway.</p>
+            <div class="space-y-4 text-[15px]">
+                <div class="bg-white rounded-lg p-4 border border-warning/30">
+                    <h3 class="font-semibold text-gray-900 mb-2">Reset Step 1: Verify SA-0242 Is Assigned to Harry Long (the WRONG tech)</h3>
+                    <p class="text-gray-700 mb-2">The demo's key moment (Scene 3) requires SA-0242 to start assigned to Harry Long, who does NOT have EPA 608 certification. This causes the jeopardy flag to appear. If you previously ran the demo and dragged the appointment to Alan Reed, the assignment needs to be swapped back.</p>
+                    <p class="text-gray-700 mb-2"><strong>How to check:</strong> Navigate to <span class="nav-url">/lightning/r/ServiceAppointment/08pg8000000CO3NAAW/view</span> and look at the Assigned Resources related list. It should show "Harry Long". If it shows "Alan Reed", you need to:</p>
+                    <ol class="text-gray-700 text-sm space-y-1 ml-4 list-decimal list-inside">
+                        <li>Delete the current AssignedResource record for Alan Reed</li>
+                        <li>Create a new AssignedResource record linking Harry Long (Service Resource ID: 0Hng80000005ZdCCAU) to SA-0242 (Service Appointment ID: 08pg8000000CO3NAAW)</li>
+                        <li>The Apex trigger will automatically set the In Jeopardy flag to true</li>
+                    </ol>
+                    <p class="text-gray-700 mt-2 text-sm"><strong>Verify:</strong> The SA-0242 record should show <strong>In Jeopardy = True</strong> after the reset.</p>
+                </div>
+                <div class="bg-white rounded-lg p-4 border border-warning/30">
+                    <h3 class="font-semibold text-gray-900 mb-2">Reset Step 2: Verify SA-0242 Scheduled Date Is Current</h3>
+                    <p class="text-gray-700">The service appointment is currently scheduled for <strong>June 23, 2026 at 2:00 PM UTC (10:00 AM ET)</strong>. If the demo date has changed, update SchedStartTime and SchedEndTime on the ServiceAppointment record so the appointment shows as "today" or "tomorrow" on the Gantt chart in the Dispatcher Console — not as a past-due item.</p>
+                </div>
+                <div class="bg-white rounded-lg p-4 border border-warning/30">
+                    <h3 class="font-semibold text-gray-900 mb-2">Reset Step 3: Pre-Load Browser Tabs</h3>
+                    <p class="text-gray-700 mb-2">Lightning pages can take 3-5 seconds to load. To avoid dead air during the demo, pre-open these tabs in your browser before the audience joins:</p>
+                    <ol class="text-gray-700 text-sm space-y-2 ml-4 list-decimal list-inside">
+                        <li><strong>Tab 1 — Case Record:</strong> <span class="nav-url">/lightning/r/Case/500g8000012765TAAQ/view</span></li>
+                        <li><strong>Tab 2 — Work Order #00000323:</strong> <span class="nav-url">/lightning/r/WorkOrder/0WOg8000000DftNGAS/view</span></li>
+                        <li><strong>Tab 3 — Dispatcher Console:</strong> <span class="nav-url">/lightning/n/FSL__DispatchConsole</span></li>
+                        <li><strong>Tab 4 — Service Director Dashboard:</strong> <span class="nav-url">/lightning/r/Dashboard/01Zg8000001WqSjEAK/view</span></li>
+                    </ol>
+                    <p class="text-gray-700 mt-2 text-sm">Also consider opening an incognito/private browsing window to avoid cached state from previous sessions.</p>
+                </div>
+                <div class="bg-white rounded-lg p-4 border border-warning/30">
+                    <h3 class="font-semibold text-gray-900 mb-2">Reset Step 4: Verify the Org Login</h3>
+                    <p class="text-gray-700">Log in as <strong>admin@mjk-260527.triplepoint</strong>. This user has full visibility into all records, the dispatcher console, and the dashboard. The org alias is <strong>salesforcetriplepoint-s9sfc5</strong>.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SCENE 1 TABLE -->
+        <!-- ============================================================ -->
+        <section>
+            <table class="scene-table" style="width:100%; border-collapse:collapse; font-size:14px;">
+                <colgroup>
+                    <col class="col-talk" style="width:40%;">
+                    <col class="col-click" style="width:35%;">
+                    <col class="col-screen" style="width:25%;">
+                </colgroup>
+
+                <!-- Scene Header -->
+                <tr class="scene-header-row">
+                    <td colspan="3" style="background-color:#032D60; color:#fff; font-weight:700; font-size:15px; padding:14px; border:1px solid #032D60;">
+                        <span style="background-color:#0176D3; color:#fff; font-size:12px; font-weight:700; padding:3px 10px; border-radius:12px; margin-right:10px;">Scene 1</span>
+                        Case Intake — "The Call Comes In" &nbsp;&bull;&nbsp; ~4 minutes
+                    </td>
+                </tr>
+
+                <!-- Context Row -->
+                <tr class="scene-context-row">
+                    <td colspan="3" style="background-color:#EBF5FF; font-size:13px; color:#374151; padding:12px 14px; border:1px solid #d1d5db;">
+                        <strong>What This Scene Demonstrates:</strong> How a customer emergency goes from a phone call to a tracked, actionable case in Salesforce — replacing the sticky notes, spreadsheets, and verbal handoffs that TP Mechanical uses today. The case record is the single source of truth and all downstream work (work orders, dispatch, quoting) flows from it.
+                    </td>
+                </tr>
+
+                <!-- Column Headers -->
+                <tr>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Talk Track (Say This)</th>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Click Path (Do This)</th>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Screenshot</th>
+                </tr>
+
+                <!-- Step 1: Set the scene -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote" style="color:#0176D3; font-style:italic;">"Let me set the scene. It's a Tuesday afternoon in Cincinnati. Your phone rings. It's Omega Inc. — one of your managed-services customers. They have a York 500-ton centrifugal chiller that's tripping on high discharge pressure. This is the chiller that cools their data center, so if it goes down, they're looking at server overheating and potential data loss. This is a true emergency."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"Today at TP Mechanical, what happens? Someone picks up the phone, writes the details on a notepad or maybe enters it into a spreadsheet. Then they walk over to the dispatch board — or call the dispatch desk — and try to figure out who's available. The details get lost in translation. Nobody's sure exactly what was said on the call."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"With Salesforce, here's what happens instead. The call comes in, the agent opens the case, and everything about this customer — their contract, their equipment, their history — is right here in front of them. Let me show you."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">1</span> <strong>Switch to your pre-loaded Case tab</strong>, or navigate to:</p>
+                        <span class="nav-url" style="font-family:monospace; font-size:11px; background-color:#f1f5f9; padding:2px 6px; border-radius:4px; color:#475569; word-break:break-all; display:inline-block; margin-top:4px;">/lightning/r/Case/500g8000012765TAAQ/view</span>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">This opens Case #00001368. The page title will show "Chiller 1 tripping on high discharge pressure - data center at risk". Wait for the page to fully render before speaking — you should see the case details panel and related lists.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Case #00001368 record page</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 2: Case details callout -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"Notice that the case is automatically linked to Omega Inc. The agent didn't have to type the account name — the system matched it from the incoming contact. Priority is set to Critical because of the equipment type and the SLA tier. All of this is automatic."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">2</span> <strong>Point to the Case Details panel</strong> on the left side of the page. Call out these fields:</p>
+                        <ul style="margin-top:8px; margin-left:16px; list-style:disc; font-size:13px; color:#6b7280;">
+                            <li><strong>Case Number:</strong> 00001368</li>
+                            <li><strong>Subject:</strong> "Chiller 1 tripping on high discharge pressure - data center at risk"</li>
+                            <li><strong>Priority:</strong> Critical (red indicator)</li>
+                            <li><strong>Status:</strong> Working</li>
+                            <li><strong>Account Name:</strong> Omega, Inc. (clickable link)</li>
+                        </ul>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Case details panel</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 3: Customer Highlight Card -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"This is a custom component we built for TP Mechanical. Your agent sees the customer's name, photo, phone, email, and account — all in one glance at the top of the case. No digging through three systems to find a phone number. Click the phone number and it dials. Click the email and it opens the Salesforce email composer so everything is tracked."</p>
+                        <p style="margin-top:8px; font-size:12px; color:#706E6B;"><em>Note: If the case does not have a Contact linked, the highlight card will show "No Contact ID on this record." This is expected for this demo case. You can still point to the component and explain what it does when a Contact is present.</em></p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">3</span> <strong>Point to the Customer Highlight Card</strong> at the top of the page.</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">This is the custom Lightning Web Component that shows a branded banner with the contact's photo, name, phone, email, and account in a single horizontal bar at the top of the case record.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Customer Highlight Card</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 4: Work Orders related list -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"Here's the key thing — the case automatically generated a work order. Your dispatcher doesn't have to re-enter any information. The subject, the customer, the priority, the asset — it all flows through. Today you're doing this with phone calls and copy-paste between systems. Here, it's one click and the work order is ready for dispatch."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">4</span> <strong>Scroll down to the Related Lists section.</strong> Look for the "Work Orders" related list.</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">You should see <strong>WO#00000323 — "WO 1 - Emergency Break-Fix"</strong> listed here. This shows that a work order has already been created and linked to this case.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Work Orders related list</span></div>
+                    </td>
+                </tr>
+
+                <!-- Transition Row -->
+                <tr class="transition-row">
+                    <td colspan="2" style="background-color:#ECFDF5; border:1px solid #d1d5db; border-left:4px solid #2E844A; padding:12px 14px;">
+                        <strong style="color:#2E844A;">↓ Transition to Scene 2</strong><br>
+                        <span class="talk-quote">"Now let's look at that work order. This is where your dispatcher sees exactly what needs to happen — what equipment, what service contract covers it, and what skills are needed. Let me click into the work order."</span><br>
+                        <span style="font-size:13px; color:#6b7280; margin-top:6px; display:inline-block;"><strong>Action:</strong> Click on <strong>"WO 1 - Emergency Break-Fix"</strong> (WO#00000323) in the Related List to navigate to the Work Order record.</span>
+                    </td>
+                    <td style="background-color:#ECFDF5; border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:60px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here</div>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SCENE 2 TABLE -->
+        <!-- ============================================================ -->
+        <section>
+            <table class="scene-table" style="width:100%; border-collapse:collapse; font-size:14px;">
+                <colgroup>
+                    <col style="width:40%;"><col style="width:35%;"><col style="width:25%;">
+                </colgroup>
+                <tr class="scene-header-row">
+                    <td colspan="3" style="background-color:#032D60; color:#fff; font-weight:700; font-size:15px; padding:14px; border:1px solid #032D60;">
+                        <span style="background-color:#0176D3; color:#fff; font-size:12px; font-weight:700; padding:3px 10px; border-radius:12px; margin-right:10px;">Scene 2</span>
+                        Work Order &amp; Asset 360 — "What Are We Working On?" &nbsp;&bull;&nbsp; ~5 minutes
+                    </td>
+                </tr>
+                <tr class="scene-context-row">
+                    <td colspan="3" style="background-color:#EBF5FF; font-size:13px; color:#374151; padding:12px 14px; border:1px solid #d1d5db;">
+                        <strong>What This Scene Demonstrates:</strong> The "Asset 360" concept — the complete picture of a customer's equipment, service contract, and entitlements. Before a technician ever rolls a truck, the dispatcher (and the tech) know exactly what equipment is being serviced, whether it's under contract, what the SLA commitments are, and what the maintenance history looks like. Replaces the "three phone calls" Terry described.
+                    </td>
+                </tr>
+                <tr>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Talk Track (Say This)</th>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Click Path (Do This)</th>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Screenshot</th>
+                </tr>
+
+                <!-- Step 1: Open WO -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"So the case created a work order. But before we dispatch a technician, we need to know: What piece of equipment is this? Is it under a service contract? What's the SLA? What's the maintenance history? Today at TP Mechanical, finding this out requires calling the customer, checking a filing cabinet, and maybe logging into a separate asset tracking system. Let me show you how this works in Salesforce."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">1</span> <strong>You should now be on Work Order #00000323</strong> (from clicking in Scene 1), or navigate to:</p>
+                        <span class="nav-url" style="font-family:monospace; font-size:11px; background-color:#f1f5f9; padding:2px 6px; border-radius:4px; color:#475569; word-break:break-all; display:inline-block; margin-top:4px;">/lightning/r/WorkOrder/0WOg8000000DftNGAS/view</span>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">The page title will show "WO 1 - Emergency Break-Fix". Wait for the page to fully render.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Work Order #00000323</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 2: WO details callout -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"Look at how much context is here on one screen. The dispatcher knows it's a Critical HVAC Emergency in Cincinnati, on a York centrifugal chiller, for Omega Inc. The Work Type tells the scheduler what skills to look for when assigning a tech. The Service Territory tells it to look in Cincinnati. None of this required manual data entry — it flowed from the case."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">2</span> <strong>Point to the Work Order Details panel.</strong> Call out these fields:</p>
+                        <ul style="margin-top:8px; margin-left:16px; list-style:disc; font-size:13px; color:#6b7280;">
+                            <li><strong>Work Order Number:</strong> 00000323</li>
+                            <li><strong>Subject:</strong> "WO 1 - Emergency Break-Fix"</li>
+                            <li><strong>Status:</strong> New</li>
+                            <li><strong>Priority:</strong> Critical</li>
+                            <li><strong>Work Type:</strong> HVAC Emergency Repair</li>
+                            <li><strong>Service Territory:</strong> TP Mechanical - Cincinnati</li>
+                            <li><strong>Account:</strong> Omega, Inc.</li>
+                            <li><strong>Asset:</strong> York YK Centrifugal Chiller - Unit 1 (clickable)</li>
+                        </ul>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">WO details panel</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 3: Click Asset -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"This is Asset 360. Your tech knows the exact unit, the serial number, and the full history before they ever leave the shop. Scroll down and you can see every work order, every service appointment, every maintenance touchpoint on this chiller. No more showing up blind to a job and having to call the office to ask 'what model is this again?'"</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">3</span> <strong>Click the Asset link:</strong> "York YK Centrifugal Chiller - Unit 1"</p>
+                        <span class="nav-url" style="font-family:monospace; font-size:11px; background-color:#f1f5f9; padding:2px 6px; border-radius:4px; color:#475569; word-break:break-all; display:inline-block; margin-top:4px;">/lightning/r/Asset/02ig8000000mU74AAE/view</span>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">On the Asset page, point to:</p>
+                        <ul style="margin-top:4px; margin-left:16px; list-style:disc; font-size:13px; color:#6b7280;">
+                            <li><strong>Asset Name:</strong> York YK Centrifugal Chiller - Unit 1</li>
+                            <li><strong>Serial Number:</strong> YK-2019-004812</li>
+                            <li><strong>Account:</strong> Omega, Inc.</li>
+                        </ul>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Asset 360 record</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 4: Asset history -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"Here's the maintenance history. Every job that's ever been performed on this chiller is tracked. When your tech shows up, they can see what was done last time, what parts were used, and whether there were any recurring issues. That context is the difference between a first-time fix and a repeat visit."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">4</span> <strong>Scroll down on the Asset page</strong> to the Related Lists section. Look for Work Orders and Service Appointments related lists. Point to any existing records to show service history.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Asset related lists</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 5: Service Contract -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"Before the truck rolls, your dispatcher already knows this customer is under an active full-coverage PM agreement. No need to call the office and ask 'are they covered?' The contract is right here — and look at the entitlements."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">5</span> <strong>Navigate back to the Work Order</strong> (browser Back button), then look for the Service Contract section, or navigate directly to:</p>
+                        <span class="nav-url" style="font-family:monospace; font-size:11px; background-color:#f1f5f9; padding:2px 6px; border-radius:4px; color:#475569; word-break:break-all; display:inline-block; margin-top:4px;">/lightning/r/ServiceContract/810g800003r3KyvAAE/view</span>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">Point to these fields:</p>
+                        <ul style="margin-top:4px; margin-left:16px; list-style:disc; font-size:13px; color:#6b7280;">
+                            <li><strong>Contract Name:</strong> Omega Full Coverage PM Agreement - 2026</li>
+                            <li><strong>Status:</strong> Active</li>
+                            <li><strong>Start/End:</strong> Jan 1 – Dec 31, 2026</li>
+                            <li><strong>Account:</strong> Omega, Inc.</li>
+                        </ul>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Service Contract record</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 6: Entitlements -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"Each piece of equipment has its own entitlement under this contract. The York chiller — the one we're servicing today — is covered. The Carrier chiller on the rooftop is covered. The Daikin air handler on the third floor is covered. Your agent sees this instantly. Terry, you mentioned wanting to track which assets consume the most service margin — it starts right here, because every work order is linked to a specific asset under a specific contract."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">6</span> <strong>Scroll down to the Entitlements related list</strong> on the Service Contract page. You should see three entitlements:</p>
+                        <ul style="margin-top:8px; margin-left:16px; list-style:disc; font-size:13px; color:#6b7280;">
+                            <li><strong>York YK Chiller - PM Coverage</strong></li>
+                            <li><strong>Carrier 30XA Chiller - PM Coverage</strong></li>
+                            <li><strong>Daikin AHU - PM Coverage</strong></li>
+                        </ul>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Entitlements list</span></div>
+                    </td>
+                </tr>
+
+                <!-- Transition -->
+                <tr class="transition-row">
+                    <td colspan="2" style="background-color:#ECFDF5; border:1px solid #d1d5db; border-left:4px solid #2E844A; padding:12px 14px;">
+                        <strong style="color:#2E844A;">↓ Transition to Scene 3</strong><br>
+                        <span class="talk-quote">"So we've got the case, the work order, the asset, and the contract all connected. Now the dispatcher needs to send a tech. This is where it gets really interesting — because not just any tech can handle refrigerant on a 500-ton chiller. Let me show you the dispatch board."</span><br>
+                        <span style="font-size:13px; color:#6b7280; margin-top:6px; display:inline-block;"><strong>Action:</strong> Switch to your pre-loaded Dispatcher Console tab, or navigate to: <span class="nav-url">/lightning/n/FSL__DispatchConsole</span></span>
+                    </td>
+                    <td style="background-color:#ECFDF5; border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:60px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here</div>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SCENE 3 TABLE -->
+        <!-- ============================================================ -->
+        <section>
+            <table class="scene-table" style="width:100%; border-collapse:collapse; font-size:14px;">
+                <colgroup>
+                    <col style="width:40%;"><col style="width:35%;"><col style="width:25%;">
+                </colgroup>
+                <tr class="scene-header-row">
+                    <td colspan="3" style="background-color:#EA001E; color:#fff; font-weight:700; font-size:15px; padding:14px; border:1px solid #EA001E;">
+                        <span style="background-color:#fff; color:#EA001E; font-size:12px; font-weight:700; padding:3px 10px; border-radius:12px; margin-right:10px;">Scene 3 ⭐</span>
+                        Dispatch &amp; Jeopardy — "The Wrong Tech" &nbsp;&bull;&nbsp; ~7 minutes — THIS IS THE KEY DEMO MOMENT
+                    </td>
+                </tr>
+                <tr class="scene-context-row">
+                    <td colspan="3" style="background-color:#FEF2F2; font-size:13px; color:#374151; padding:12px 14px; border:1px solid #d1d5db;">
+                        <strong>⭐ This Is the "Wow" Moment — Take Your Time.</strong> This scene directly addresses Terry's #1 pain point: sending unqualified techs to jobs. The jeopardy flag is a visual, unmissable indicator that the assigned tech doesn't have the required certification. The drag-and-drop reassignment that clears the flag is the "money shot" of the demo. Don't rush through this. Pause after showing the jeopardy flag and let it sink in. Ask Terry a question. Then do the drag-and-drop.
+                    </td>
+                </tr>
+                <tr>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Talk Track (Say This)</th>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Click Path (Do This)</th>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Screenshot</th>
+                </tr>
+
+                <!-- Step 1: Open Dispatcher Console -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"Now we need to dispatch a technician. This is where things get critical for you, Terry. You told us that you've had situations where the wrong tech shows up to a job. They don't have the right certification — say, EPA 608 for refrigerant handling — and they're standing in front of a 500-ton chiller they can't legally work on. That's an $800 wasted truck roll, a furious customer, and a missed SLA."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"Let me show you the dispatch board. This is where your dispatcher lives day-to-day."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">1</span> <strong>Switch to the Dispatcher Console tab</strong>, or navigate to:</p>
+                        <span class="nav-url" style="font-family:monospace; font-size:11px; background-color:#f1f5f9; padding:2px 6px; border-radius:4px; color:#475569; word-break:break-all; display:inline-block; margin-top:4px;">/lightning/n/FSL__DispatchConsole</span>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">The left side shows the list of service appointments (the "unscheduled" pane), and the main area shows technician rows with their scheduled appointments as colored blocks on a timeline. Wait 3-5 seconds for the Gantt chart to fully render.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Dispatcher Console / Gantt chart</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 2: Locate SA-0242 -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p style="font-size:13px; color:#6b7280;"><em>(No talk track for this step — just find the appointment visually on the Gantt.)</em></p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">2</span> <strong>Locate SA-0242 on the Gantt chart.</strong> Look for the appointment block on Harry Long's row, scheduled for June 23. It will have a <strong style="color:#EA001E;">red jeopardy flag (🔴)</strong> indicator.</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">If you can't find it: adjust the Gantt date range to include June 23. Use the "Service Territory" filter in the left panel → select "TP Mechanical - Cincinnati" to reduce noise.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">SA-0242 on Harry Long's row with jeopardy flag</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 3: KEY MOMENT - Jeopardy callout -->
+                <tr class="highlight-row">
+                    <td style="border:1px solid #d1d5db; border-left:4px solid #EA001E; padding:12px 14px; vertical-align:top; background-color:#FEF2F2;">
+                        <p class="talk-quote"><strong>⭐ PAUSE HERE.</strong></p>
+                        <p class="talk-quote" style="margin-top:8px;">"See that red flag? That's a jeopardy indicator. The system has automatically detected that Harry Long — the tech currently assigned to this chiller emergency — does not have EPA 608 certification. EPA 608 is a federal requirement for handling refrigerant on commercial HVAC systems. Harry is a great plumber, but he's not certified to touch this chiller."</p>
+                        <p class="talk-quote" style="margin-top:10px;">"Terry, your dispatcher sees this BEFORE the truck rolls. Not when Harry is standing on-site calling the office saying 'I can't do this job.' Before. That's the difference."</p>
+                        <p class="talk-quote" style="margin-top:10px;"><strong>Optional question to Terry:</strong> "How many times in the last month has something like this happened at TP Mechanical?" <span style="color:#706E6B; font-style:normal;">(Let him answer. His answer reinforces the value.)</span></p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top; background-color:#FEF2F2;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#EA001E; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">3</span> <strong>Point to the red jeopardy flag on SA-0242.</strong> Make eye contact with Terry.</p>
+                        <p style="margin-top:10px; font-size:13px; color:#6b7280;">Optionally, click on the SA-0242 appointment block to open the appointment details flyout. You can also hover over Harry Long's name to show his skill profile — notably <strong>missing</strong> EPA 608 Certification.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top; background-color:#FEF2F2;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Close-up of jeopardy flag</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 4: DRAG AND DROP -->
+                <tr style="background-color:#ECFDF5;">
+                    <td style="border:1px solid #d1d5db; border-left:4px solid #2E844A; padding:12px 14px; vertical-align:top; background-color:#ECFDF5;">
+                        <p class="talk-quote"><strong>⭐ THE MONEY SHOT</strong></p>
+                        <p class="talk-quote" style="margin-top:8px;">"Watch what happens. I'm dragging the job from Harry to Alan Reed. Alan has EPA 608 certification and Chiller Service skills. He's the right tech for this job."</p>
+                        <p class="talk-quote" style="margin-top:10px;"><strong>After the flag clears:</strong> "The jeopardy flag is gone. The system confirmed that Alan has the right qualifications. Your dispatcher just prevented a wasted truck roll in one drag-and-drop. No phone calls. No checking a spreadsheet. No guessing."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top; background-color:#ECFDF5;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#2E844A; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">4</span> <strong>Click and hold on SA-0242</strong> on Harry Long's row. <strong>Drag it to Alan Reed's row.</strong> Release it at a similar time slot.</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;"><strong>What should happen:</strong> The system reassigns the appointment. The Apex trigger fires and sets In Jeopardy = false. The red flag should <strong>disappear or turn green</strong> within a few seconds.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top; background-color:#ECFDF5;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">SA-0242 on Alan Reed's row — flag cleared</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 5: Alan's skills -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"Alan has EPA 608, Chiller Service, and five other relevant certifications. The system knows this because every tech's skills and certifications are tracked in their profile. When a cert expires, the skill drops off, and the jeopardy system catches it. No more relying on someone's memory of who's certified for what."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">5</span> <strong>Optionally, hover over Alan Reed's name</strong> to show his skill profile: EPA 608 Certification ✅, Chiller Service ✅, Break-Fix ✅, HVAC Preventive Maintenance ✅.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Alan Reed's skill profile</span></div>
+                    </td>
+                </tr>
+
+                <!-- Troubleshooting -->
+                <tr class="trouble-row">
+                    <td colspan="3" style="background-color:#FFF7ED; border:1px solid #d1d5db; border-left:4px solid #FE9339; padding:12px 14px;">
+                        <strong style="color:#FE9339;">⚡ Troubleshooting — If Something Goes Wrong in Scene 3</strong>
+                        <ul style="margin-top:8px; margin-left:16px; font-size:13px; color:#374151; list-style:disc;">
+                            <li><strong>Jeopardy flag doesn't appear on SA-0242:</strong> Verify that Harry Long (not Alan Reed) is the assigned resource. Navigate to <span class="nav-url">/lightning/r/ServiceAppointment/08pg8000000CO3NAAW/view</span> and check the Assigned Resources related list.</li>
+                            <li style="margin-top:6px;"><strong>Flag doesn't clear after drag-and-drop:</strong> The Apex trigger is hardcoded to specific record IDs (SA-0242 = 08pg8000000CO3NAAW, Alan Reed = 0Hng80000005ZdFCAU). If the IDs don't match, the trigger won't fire. As a fallback, manually edit the ServiceAppointment record and set "In Jeopardy" to false.</li>
+                            <li style="margin-top:6px;"><strong>Gantt chart doesn't show the appointment:</strong> Check the date range filter at the top of the Gantt — make sure it includes June 23, 2026. Also check the Service Territory filter → select "TP Mechanical - Cincinnati".</li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <!-- Transition -->
+                <tr class="transition-row">
+                    <td colspan="2" style="background-color:#ECFDF5; border:1px solid #d1d5db; border-left:4px solid #2E844A; padding:12px 14px;">
+                        <strong style="color:#2E844A;">↓ Transition to Scene 4</strong><br>
+                        <span class="talk-quote">"Great. So Alan is now dispatched with all the right qualifications. He gets to Omega's facility, opens his Field Service mobile app, and sees everything we just looked at — the work order, the asset details, the customer contact info. Now let me show you what happens when he's on-site and finds additional scope."</span><br>
+                        <span style="font-size:13px; color:#6b7280; margin-top:6px; display:inline-block;"><strong>Action:</strong> Navigate back to the Work Order page: <span class="nav-url">/lightning/r/WorkOrder/0WOg8000000DftNGAS/view</span></span>
+                    </td>
+                    <td style="background-color:#ECFDF5; border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:60px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here</div>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SCENE 4 TABLE -->
+        <!-- ============================================================ -->
+        <section>
+            <table class="scene-table" style="width:100%; border-collapse:collapse; font-size:14px;">
+                <colgroup>
+                    <col style="width:40%;"><col style="width:35%;"><col style="width:25%;">
+                </colgroup>
+                <tr class="scene-header-row">
+                    <td colspan="3" style="background-color:#032D60; color:#fff; font-weight:700; font-size:15px; padding:14px; border:1px solid #032D60;">
+                        <span style="background-color:#0176D3; color:#fff; font-size:12px; font-weight:700; padding:3px 10px; border-radius:12px; margin-right:10px;">Scene 4</span>
+                        Field Diagnosis — "Alan Finds Additional Scope" &nbsp;&bull;&nbsp; ~5 minutes
+                    </td>
+                </tr>
+                <tr class="scene-context-row">
+                    <td colspan="3" style="background-color:#EBF5FF; font-size:13px; color:#374151; padding:12px 14px; border:1px solid #d1d5db;">
+                        <strong>What This Scene Demonstrates:</strong> What happens when the technician discovers additional work scope in the field. The tech creates a "scope add-on" work order directly from the field, linked to the original job. This feeds into the quoting workflow and eliminates the phone-tag → lost-estimate → revenue-leakage cycle that Terry described.
+                    </td>
+                </tr>
+                <tr>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Talk Track (Say This)</th>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Click Path (Do This)</th>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Screenshot</th>
+                </tr>
+
+                <!-- Step 1: Narrate field arrival -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"Alan arrives at Omega's data center. He opens his Field Service mobile app — which looks very similar to what we're seeing here on the desktop, just optimized for a phone or tablet. He's got the work order details, the asset info, the customer's contact information. He knows exactly what he's walking into."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"Alan runs his diagnostics on the York chiller. The compressor is running hot, discharge pressure is through the roof. He determines that the compressor is failing and needs to be replaced. But here's the thing — Alan also notices that the condenser coils are in bad shape and the control board firmware is outdated. This is additional scope beyond the emergency call."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"Today at TP Mechanical, what does Alan do? He calls the office, tells someone over the phone about the additional scope, and hopes it gets written down correctly and makes it into an estimate. Sometimes it does, sometimes it doesn't. Revenue gets left on the table."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"With Salesforce, Alan creates a scope add-on work order right from his phone, linked to the original job. Let me show you."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">1</span> <strong>You should be on Work Order #00000323</strong> (from Scene 3 transition), or navigate to:</p>
+                        <span class="nav-url" style="font-family:monospace; font-size:11px; background-color:#f1f5f9; padding:2px 6px; border-radius:4px; color:#475569; word-break:break-all; display:inline-block; margin-top:4px;">/lightning/r/WorkOrder/0WOg8000000DftNGAS/view</span>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">Point to the Service Appointments related list — SA-0242 should now show Alan Reed assigned, jeopardy cleared.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">WO#00000323 with SA-0242 reassigned</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 2: Navigate to WO3 -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"This is the scope add-on work order that Alan created from the field. Notice a few things: First, the Work Type is 'Service Estimate / Quote' — this tells the estimating team that this needs to be priced and sent to the customer. Second, it's linked to the same York chiller and the same case as the original emergency. The full chain is preserved: Case → Emergency Work Order → Scope Add-on → Quote. Nothing falls through the cracks."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"Terry, you told us your billing cycle is too slow because scope changes get relayed by phone and re-entered into a different system. Here, Alan documented it in the field in two minutes, and your estimating team already has it in their queue. No phone call. No re-keying. No lost revenue."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">2</span> <strong>Navigate to Work Order #00000325 — the scope add-on.</strong> Look for it in the Related Work Orders section on WO#00000323, or navigate directly to:</p>
+                        <span class="nav-url" style="font-family:monospace; font-size:11px; background-color:#f1f5f9; padding:2px 6px; border-radius:4px; color:#475569; word-break:break-all; display:inline-block; margin-top:4px;">/lightning/r/WorkOrder/0WOg8000000DfwbGAC/view</span>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">Point to these fields:</p>
+                        <ul style="margin-top:4px; margin-left:16px; list-style:disc; font-size:13px; color:#6b7280;">
+                            <li><strong>Subject:</strong> "WO 3 - Field Scope Add-on"</li>
+                            <li><strong>Work Type:</strong> Service Estimate / Quote</li>
+                            <li><strong>Priority:</strong> High</li>
+                            <li><strong>Asset:</strong> York YK Centrifugal Chiller - Unit 1</li>
+                            <li><strong>Service Territory:</strong> TP Mechanical - Cincinnati</li>
+                            <li><strong>Case:</strong> Linked to #00001368</li>
+                        </ul>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">WO#00000325 — Scope Add-on</span></div>
+                    </td>
+                </tr>
+
+                <!-- Transition -->
+                <tr class="transition-row">
+                    <td colspan="2" style="background-color:#ECFDF5; border:1px solid #d1d5db; border-left:4px solid #2E844A; padding:12px 14px;">
+                        <strong style="color:#2E844A;">↓ Transition to Scene 5</strong><br>
+                        <span class="talk-quote">"This scope add-on feeds directly into the quoting workflow. The compressor replacement needs to be priced, approved, and sent to the customer. Let me briefly show you how that connects to Revenue Cloud."</span>
+                    </td>
+                    <td style="background-color:#ECFDF5; border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:60px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here</div>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SCENE 5 TABLE -->
+        <!-- ============================================================ -->
+        <section>
+            <table class="scene-table" style="width:100%; border-collapse:collapse; font-size:14px;">
+                <colgroup>
+                    <col style="width:40%;"><col style="width:35%;"><col style="width:25%;">
+                </colgroup>
+                <tr class="scene-header-row">
+                    <td colspan="3" style="background-color:#032D60; color:#fff; font-weight:700; font-size:15px; padding:14px; border:1px solid #032D60;">
+                        <span style="background-color:#0176D3; color:#fff; font-size:12px; font-weight:700; padding:3px 10px; border-radius:12px; margin-right:10px;">Scene 5</span>
+                        Replacement Quote — "Turning Service Into Revenue" &nbsp;&bull;&nbsp; ~3 minutes
+                    </td>
+                </tr>
+                <tr class="scene-context-row">
+                    <td colspan="3" style="background-color:#EBF5FF; font-size:13px; color:#374151; padding:12px 14px; border:1px solid #d1d5db;">
+                        <strong>What This Scene Demonstrates:</strong> Brief bridge from field service → Revenue Cloud quoting. The scope add-on work order feeds directly into a pricing/approval process. The Revenue Cloud SE may handle the detailed CPQ walkthrough — your job is to frame the connection and the business value. Keep this scene short unless Terry asks questions.
+                    </td>
+                </tr>
+                <tr>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Talk Track (Say This)</th>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Click Path (Do This)</th>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Screenshot</th>
+                </tr>
+
+                <!-- Step 1: Revenue Cloud narration -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"So Alan found that the compressor needs replacing, the condenser coils are degraded, and the control board firmware is outdated. That's a significant quote — we're talking about a compressor replacement on a 500-ton York chiller, plus ancillary work."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"Today at TP Mechanical, this turns into a separate process. Somebody in the office takes Alan's notes, enters them into a quoting tool, prices the parts and labor, gets manager approval, and sends it to the customer. That can take days or even weeks. Meanwhile, the customer is waiting, and the longer the quote takes, the more likely they shop it to a competitor."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"With Salesforce, the scope add-on work order we just looked at feeds directly into Revenue Cloud. The pricing is configured — compressor model, labor rates, markup — so the estimate can be generated quickly. Approval governance is built in, so the right managers sign off based on dollar thresholds. And the quote goes to the customer electronically, tracked in the system, linked all the way back to the original emergency case."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"Your Revenue Cloud SE can walk you through the detailed pricing and approval configuration. The key takeaway is: from Alan's phone in the field to a customer-ready quote, it's one connected process. No handoffs, no re-keying, no lost estimates."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">1</span> <strong>Stay on WO#00000325</strong> (the scope add-on from Scene 4). No new navigation needed.</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">Point to the Work Type ("Service Estimate / Quote") and the Asset link to reinforce that the quote will be tied to the specific piece of equipment.</p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">If there is a Quote or Opportunity related list visible on the page, point to it and explain that this is where the Revenue Cloud quote would be created. If there isn't one visible, that's fine — narrate the connection verbally.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">WO#00000325 — Work Type & Asset fields</span></div>
+                    </td>
+                </tr>
+
+                <!-- Presenter note -->
+                <tr>
+                    <td colspan="3" style="background-color:#F9FAFB; border:1px solid #d1d5db; padding:12px 14px; font-size:13px; color:#706E6B;">
+                        <strong>Presenter Note:</strong> This scene is intentionally brief. If Terry asks detailed questions about pricing, approval routing, or CPQ configuration, this is a good place to tag in the Revenue Cloud SE or say <em>"We'll schedule a deep-dive on the Revenue Cloud quoting workflow as a next step."</em> Don't get pulled into CPQ details unless you're comfortable covering them.
+                    </td>
+                </tr>
+
+                <!-- Transition -->
+                <tr class="transition-row">
+                    <td colspan="2" style="background-color:#ECFDF5; border:1px solid #d1d5db; border-left:4px solid #2E844A; padding:12px 14px;">
+                        <strong style="color:#2E844A;">↓ Transition to Scene 6</strong><br>
+                        <span class="talk-quote">"Now let me show you the part I think you'll find most valuable, Terry. Everything we've just walked through — every case, every work order, every appointment, every tech hour — it all feeds into real-time dashboards. You mentioned you want to see technician utilization and margin metrics. Let me show you what that looks like."</span><br>
+                        <span style="font-size:13px; color:#6b7280; margin-top:6px; display:inline-block;"><strong>Action:</strong> Switch to your pre-loaded Dashboard tab, or navigate to: <span class="nav-url">/lightning/r/Dashboard/01Zg8000001WqSjEAK/view</span></span>
+                    </td>
+                    <td style="background-color:#ECFDF5; border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:60px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here</div>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- SCENE 6 TABLE -->
+        <!-- ============================================================ -->
+        <section>
+            <table class="scene-table" style="width:100%; border-collapse:collapse; font-size:14px;">
+                <colgroup>
+                    <col style="width:40%;"><col style="width:35%;"><col style="width:25%;">
+                </colgroup>
+                <tr class="scene-header-row">
+                    <td colspan="3" style="background-color:#032D60; color:#fff; font-weight:700; font-size:15px; padding:14px; border:1px solid #032D60;">
+                        <span style="background-color:#2E844A; color:#fff; font-size:12px; font-weight:700; padding:3px 10px; border-radius:12px; margin-right:10px;">Scene 6</span>
+                        Executive Dashboard — "Terry's View" &nbsp;&bull;&nbsp; ~5 minutes
+                    </td>
+                </tr>
+                <tr class="scene-context-row">
+                    <td colspan="3" style="background-color:#EBF5FF; font-size:13px; color:#374151; padding:12px 14px; border:1px solid #d1d5db;">
+                        <strong>What This Scene Demonstrates:</strong> The "Service Director Dashboard" — a custom dashboard built to address Terry's two metrics: technician utilization rates and margin by technician. The dashboard pulls from live reports that aggregate service appointment and work order data. The key message: these metrics are real-time, automatically populated, and standardized — so when TP Mechanical acquires their 9th OpCo, they slot right into the same dashboard.
+                    </td>
+                </tr>
+                <tr>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Talk Track (Say This)</th>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Click Path (Do This)</th>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Screenshot</th>
+                </tr>
+
+                <!-- Step 1: Open Dashboard -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"Terry, this is the Service Director Dashboard. Everything we just showed you — the cases, the work orders, the appointments, the technician assignments — it all feeds into this view in real-time. There's no end-of-month data export, no spreadsheet compilation, no 'let me ask dispatch to pull the numbers.' It's live."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">1</span> <strong>Switch to the Dashboard tab</strong>, or navigate to:</p>
+                        <span class="nav-url" style="font-family:monospace; font-size:11px; background-color:#f1f5f9; padding:2px 6px; border-radius:4px; color:#475569; word-break:break-all; display:inline-block; margin-top:4px;">/lightning/r/Dashboard/01Zg8000001WqSjEAK/view</span>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">The dashboard has a 3-column layout with 5 components. Wait for all charts to render (3-5 seconds).</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Full dashboard view</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 2: Technician Utilization -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"This is technician utilization — the metric you said you compile manually from spreadsheets every month. Here, it's automatic. Every service appointment that gets scheduled and completed updates this chart in real-time. You can see at a glance who's running hot and who has capacity. If you're planning to pull a tech for training or PTO, you know exactly what you're giving up."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">2</span> <strong>Point to the LEFT column — "Technician Utilization" bar chart.</strong></p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">Each bar represents a technician, and the height represents their total scheduled hours.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Technician Utilization chart</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 3: Work Order Pipeline -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"This is your work order pipeline. At a glance you can see how many jobs are new, how many are scheduled, how many are in progress, and how many are completed. If you see a spike in 'New' jobs piling up, that tells you dispatch is falling behind. If 'In Progress' is growing without 'Completed' keeping up, you've got a throughput problem."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">3</span> <strong>Point to the LEFT column, second component — "Work Order Pipeline" donut chart.</strong></p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">Shows the distribution of work orders by status (New, Scheduled, In Progress, Completed, Closed). Percentages are shown on each segment.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Work Order Pipeline donut</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 4: Compliance -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"This is SLA compliance by technician. It measures whether your techs are arriving on time and completing within the service window. If a tech is consistently low on compliance, that's either a scheduling problem, a skills problem, or a performance conversation. Either way, you know about it in real-time instead of hearing about it when the customer escalates."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">4</span> <strong>Point to the MIDDLE column — "Technician Compliance Score" bar chart.</strong></p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">Shows the SLA compliance percentage by technician.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Compliance Score chart</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 5: First Time Fix -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"First-time fix rate is a critical margin driver. If a tech needs two or three trips to complete a job, you're eating the cost of those extra truck rolls. This chart shows you which techs are efficient and which ones might need additional training or better pre-job information — which, by the way, is exactly what the Asset 360 and skill-matching we just showed you helps with."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">5</span> <strong>Point to the MIDDLE column, second component — "First Time Fix Rate" bar chart.</strong></p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">Shows appointment counts by technician as a proxy for first-time fix rate.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">First Time Fix Rate chart</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 6: Utilization Detail Table -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"And here's the same utilization data in a table format with color coding. Green means the tech is well-utilized, red means they're underutilized. This is the view you'd pull up in a weekly ops meeting to make decisions about staffing, overtime, and training schedules."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">6</span> <strong>Point to the RIGHT column — "Utilization Detail" table.</strong></p>
+                        <p style="margin-top:8px; font-size:13px; color:#6b7280;">Color-coded indicators: Green = above 70%, Yellow = 30-70%, Red = below 30%.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Utilization Detail table</span></div>
+                    </td>
+                </tr>
+
+                <!-- Step 7: Drill-down -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"And everything is drillable. If I click on a technician's bar, I can see every appointment that makes up that number. Full traceability — from the dashboard metric all the way down to the individual service appointment record."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p><span class="step-num" style="display:inline-block; background-color:#0176D3; color:white; font-size:11px; font-weight:700; width:22px; height:22px; border-radius:50%; text-align:center; line-height:22px; margin-right:6px;">7</span> <strong>Click on any chart component</strong> to demonstrate drill-down capability. Clicking a bar opens the underlying report.</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Drill-down report view</span></div>
+                    </td>
+                </tr>
+
+                <!-- Acquisition Story -->
+                <tr>
+                    <td colspan="2" style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top; background-color:#EBF5FF;">
+                        <strong style="color:#032D60;">🎯 Key Closing Point — The Acquisition Scalability Story</strong><br><br>
+                        <span class="talk-quote">"Terry, here's why this matters for TriplePoint specifically. You told us you're running 8 OpCos today, and every acquisition brings a different spreadsheet, a different way of tracking metrics, a different definition of 'utilization.' When your PE sponsor asks 'what's our overall technician utilization across TP Mechanical?' you have to spend days compiling it."</span><br><br>
+                        <span class="talk-quote">"With Salesforce, every OpCo runs on the same platform. Same data model, same metrics definitions, same dashboards. When you acquire company number 9, they slot right in. Their techs, their territories, their appointments — it all flows into this same dashboard. You go from weeks of manual compilation to a live, real-time view across the entire organization."</span><br><br>
+                        <span class="talk-quote">"That's not just an operational improvement — that's a platform play. And it's what your PE sponsor is looking for to justify the investment."</span>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top; background-color:#EBF5FF;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">Dashboard with OpCo context</span></div>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- CLOSING TABLE -->
+        <!-- ============================================================ -->
+        <section>
+            <table class="scene-table" style="width:100%; border-collapse:collapse; font-size:14px;">
+                <colgroup>
+                    <col style="width:40%;"><col style="width:35%;"><col style="width:25%;">
+                </colgroup>
+                <tr class="scene-header-row">
+                    <td colspan="3" style="background-color:#2E844A; color:#fff; font-weight:700; font-size:15px; padding:14px; border:1px solid #2E844A;">
+                        <span style="background-color:#fff; color:#2E844A; font-size:12px; font-weight:700; padding:3px 10px; border-radius:12px; margin-right:10px;">Close</span>
+                        Closing &amp; Discussion — "What Resonated?" &nbsp;&bull;&nbsp; ~3 minutes
+                    </td>
+                </tr>
+                <tr>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Talk Track (Say This)</th>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Click Path (Do This)</th>
+                    <th style="background-color:#f3f4f6; font-weight:600; text-align:left; padding:10px 14px; border:1px solid #d1d5db;">Screenshot</th>
+                </tr>
+
+                <!-- Recap -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"Let me recap what we just walked through. A chiller emergency came in from Omega. We went from a phone call to a tracked case in seconds. The case generated a work order linked to the exact piece of equipment, the service contract, and the entitlements. The dispatcher saw — before the truck rolled — that the assigned tech didn't have the right certification, and reassigned to a qualified tech in one drag-and-drop. The tech got on-site with full context, diagnosed the issue, and created a scope add-on for a compressor replacement that fed directly into the quoting workflow. And everything — every case, work order, appointment, and tech hour — rolled up into a real-time executive dashboard."</p>
+                        <p style="margin-top:10px;" class="talk-quote">"Today at TP Mechanical, that same scenario involves a spreadsheet, three phone calls, a filing cabinet, a separate quoting tool, and a month-end metrics compilation. Salesforce replaces all of that with one connected platform."</p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p style="font-size:13px; color:#6b7280;"><em>No clicks for this step — this is a verbal recap. Stay on the Dashboard page (or return to the Case page) as a visual anchor while you speak.</em></p>
+                        <p style="margin-top:12px; font-size:13px;"><strong>Value Points Delivered:</strong></p>
+                        <ul style="margin-top:6px; margin-left:16px; list-style:disc; font-size:13px; color:#6b7280;">
+                            <li>✓ Single system of record</li>
+                            <li>✓ Skill-based scheduling with jeopardy</li>
+                            <li>✓ Asset 360</li>
+                            <li>✓ Field-to-quote pipeline</li>
+                            <li>✓ Real-time executive dashboards</li>
+                            <li>✓ Acquisition-ready platform</li>
+                        </ul>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:120px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">(Optional)</span></div>
+                    </td>
+                </tr>
+
+                <!-- Closing question -->
+                <tr>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p class="talk-quote">"Terry, of everything we just showed you, what would have the most immediate impact on your Cincinnati team? If we were to start a pilot, what would you want to tackle first?"</p>
+                        <p style="margin-top:8px; font-size:12px; color:#706E6B;"><em>This is an open-ended question designed to get Terry to identify his top priority. His answer tells you what the pilot should focus on and what the next meeting should be about. Listen carefully and take notes.</em></p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <p style="font-size:13px; color:#6b7280;"><em>No clicks — open discussion. Take notes on Terry's response.</em></p>
+                    </td>
+                    <td style="border:1px solid #d1d5db; padding:12px 14px; vertical-align:top;">
+                        <div class="screenshot-placeholder" style="min-height:80px; border:2px dashed #d1d5db; border-radius:6px; display:flex; align-items:center; justify-content:center; color:#9ca3af; font-style:italic; font-size:12px; text-align:center; padding:10px;">Paste screenshot here<br><span style="font-size:10px;">(Optional)</span></div>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <!-- ============================================================ -->
+        <!-- QUICK REFERENCE TABLE -->
+        <!-- ============================================================ -->
+        <section class="bg-primary/5 rounded-lg p-6 border border-primary/10">
+            <h2 class="text-lg font-bold text-primary mb-4">📋 Quick Reference — All Record IDs, URLs, and Navigation Paths</h2>
+            <div class="overflow-x-auto">
+                <table style="width:100%; border-collapse:collapse; font-size:13px;">
+                    <thead>
+                        <tr style="border-bottom:2px solid #d1d5db;">
+                            <th style="padding:8px; text-align:left; font-weight:600; color:#374151;">Record</th>
+                            <th style="padding:8px; text-align:left; font-weight:600; color:#374151;">Name / Number</th>
+                            <th style="padding:8px; text-align:left; font-weight:600; color:#374151;">Salesforce ID</th>
+                            <th style="padding:8px; text-align:left; font-weight:600; color:#374151;">Direct URL Path</th>
+                            <th style="padding:8px; text-align:left; font-weight:600; color:#374151;">Scene</th>
+                        </tr>
+                    </thead>
+                    <tbody style="color:#6b7280;">
+                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Case (Emergency)</td><td style="padding:8px;">#00001368 — Chiller 1 tripping on high discharge pressure</td><td style="padding:8px; font-family:monospace; font-size:11px;">500g8000012765TAAQ</td><td style="padding:8px;"><span class="nav-url">/lightning/r/Case/500g8000012765TAAQ/view</span></td><td style="padding:8px;">1</td></tr>
+                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Case (PM)</td><td style="padding:8px;">#00001369 — Q2 preventive maintenance</td><td style="padding:8px; font-family:monospace; font-size:11px;">500g80000127IA9AAM</td><td style="padding:8px;"><span class="nav-url">/lightning/r/Case/500g80000127IA9AAM/view</span></td><td style="padding:8px;">—</td></tr>
+                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">WO1 (Emergency)</td><td style="padding:8px;">#00000323 — Emergency Break-Fix</td><td style="padding:8px; font-family:monospace; font-size:11px;">0WOg8000000DftNGAS</td><td style="padding:8px;"><span class="nav-url">/lightning/r/WorkOrder/0WOg8000000DftNGAS/view</span></td><td style="padding:8px;">2, 4</td></tr>
+                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">WO3 (Scope Add-on)</td><td style="padding:8px;">#00000325 — Field Scope Add-on</td><td style="padding:8px; font-family:monospace; font-size:11px;">0WOg8000000DfwbGAC</td><td style="padding:8px;"><span class="nav-url">/lightning/r/WorkOrder/0WOg8000000DfwbGAC/view</span></td><td style="padding:8px;">4, 5</td></tr>
+                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Service Appointment</td><td style="padding:8px;">SA-0242 (June 23, 2:00 PM UTC)</td><td style="padding:8px; font-family:monospace; font-size:11px;">08pg8000000CO3NAAW</td><td style="padding:8px;"><span class="nav-url">/lightning/r/ServiceAppointment/08pg8000000CO3NAAW/view</span></td><td style="padding:8px;">3</td></tr>
+                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Asset (York Chiller)</td><td style="padding:8px;">York YK Centrifugal Chiller - Unit 1 (YK-2019-004812)</td><td style="padding:8px; font-family:monospace; font-size:11px;">02ig8000000mU74AAE</td><td style="padding:8px;"><span class="nav-url">/lightning/r/Asset/02ig8000000mU74AAE/view</span></td><td style="padding:8px;">2</td></tr>
+                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Asset (Carrier Chiller)</td><td style="padding:8px;">Carrier 30XA Air-Cooled Chiller - Rooftop A</td><td style="padding:8px; font-family:monospace; font-size:11px;">02ig8000000mUmzAAE</td><td style="padding:8px;"><span class="nav-url">/lightning/r/Asset/02ig8000000mUmzAAE/view</span></td><td style="padding:8px;">2</td></tr>
+                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Asset (Daikin AHU)</td><td style="padding:8px;">Daikin Applied AHU - Floor 3 Server Room</td><td style="padding:8px; font-family:monospace; font-size:11px;">02ig8000000mUobAAE</td><td style="padding:8px;"><span class="nav-url">/lightning/r/Asset/02ig8000000mUobAAE/view</span></td><td style="padding:8px;">2</td></tr>
+                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Service Contract</td><td style="padding:8px;">Omega Full Coverage PM Agreement - 2026</td><td style="padding:8px; font-family:monospace; font-size:11px;">810g800003r3KyvAAE</td><td style="padding:8px;"><span class="nav-url">/lightning/r/ServiceContract/810g800003r3KyvAAE/view</span></td><td style="padding:8px;">2</td></tr>
+                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Account</td><td style="padding:8px;">Omega, Inc.</td><td style="padding:8px; font-family:monospace; font-size:11px;">001g800000JPcTmAAL</td><td style="padding:8px;"><span class="nav-url">/lightning/r/Account/001g800000JPcTmAAL/view</span></td><td style="padding:8px;">All</td></tr>
+                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Wrong Tech</td><td style="padding:8px;">Harry Long (NO EPA 608)</td><td style="padding:8px; font-family:monospace; font-size:11px;">0Hng80000005ZdCCAU</td><td style="padding:8px;">—</td><td style="padding:8px;">3</td></tr>
+                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Right Tech</td><td style="padding:8px;">Alan Reed (EPA 608 ✅, Chiller Service ✅)</td><td style="padding:8px; font-family:monospace; font-size:11px;">0Hng80000005ZdFCAU</td><td style="padding:8px;">—</td><td style="padding:8px;">3</td></tr>
+                        <tr style="border-bottom:1px solid #f3f4f6;"><td style="padding:8px; font-weight:500;">Dispatcher Console</td><td style="padding:8px;">Field Service Dispatch Gantt</td><td style="padding:8px; font-family:monospace; font-size:11px;">—</td><td style="padding:8px;"><span class="nav-url">/lightning/n/FSL__DispatchConsole</span></td><td style="padding:8px;">3</td></tr>
+                        <tr><td style="padding:8px; font-weight:500;">Dashboard</td><td style="padding:8px;">TP Mechanical - Service Director Dashboard</td><td style="padding:8px; font-family:monospace; font-size:11px;">01Zg8000001WqSjEAK</td><td style="padding:8px;"><span class="nav-url">/lightning/r/Dashboard/01Zg8000001WqSjEAK/view</span></td><td style="padding:8px;">6</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- ORG DETAILS -->
+        <section class="bg-muted/10 rounded-lg p-6 border border-muted/20">
+            <h2 class="text-lg font-bold text-primary mb-4">🔑 Org Login Details</h2>
+            <div class="grid grid-cols-2 gap-4 text-[15px]">
+                <div>
+                    <p class="text-muted text-sm">Username</p>
+                    <p class="font-mono text-gray-900">admin@mjk-260527.triplepoint</p>
+                </div>
+                <div>
+                    <p class="text-muted text-sm">Org Alias</p>
+                    <p class="font-mono text-gray-900">salesforcetriplepoint-s9sfc5</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-primary text-blue-200 text-center text-xs py-4 mt-8">
+        TP Mechanical Demo Runbook — Prepared for June 23, 2026 — Confidential — For Internal Use Only
+    </footer>
+
+</body>
+</html>
