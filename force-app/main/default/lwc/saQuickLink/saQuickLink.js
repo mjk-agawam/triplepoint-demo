@@ -1,51 +1,94 @@
 import { LightningElement, api, wire } from 'lwc';
 import { NavigationMixin } from 'lightning/navigation';
-import { getRelatedListRecords } from 'lightning/uiRelatedListApi';
+import getCounts from '@salesforce/apex/WorkOrderRelatedLinksController.getCounts';
+
+const RELATED_LISTS = [
+    { label: 'Work Order Line Items',  key: 'workOrderLineItemCount',  rel: 'WorkOrderLineItems' },
+    { label: 'Products Required',      key: 'productRequiredCount',    rel: 'ProductsRequired' },
+    { label: 'Products Consumed',      key: 'productConsumedCount',    rel: 'ProductsConsumed' },
+    { label: 'Work Plans',             key: 'workPlanCount',           rel: 'WorkPlans' },
+    { label: 'Work Steps',             key: 'workStepCount',           rel: null },
+    { label: 'Skill Requirements',     key: 'skillRequirementCount',   rel: 'SkillRequirements' },
+    { label: 'Open Activities',        key: 'openActivityCount',       rel: 'OpenActivities' },
+    { label: 'Activity History',       key: 'activityHistoryCount',    rel: 'ActivityHistories' },
+    { label: 'Tasks',                  key: 'taskCount',               rel: 'Tasks' },
+    { label: 'Emails',                 key: 'emailCount',              rel: 'Emails' },
+    { label: 'Files',                  key: 'fileCount',               rel: 'CombinedAttachments' },
+    { label: 'Attachments',            key: 'attachmentCount',         rel: 'Attachments' },
+    { label: 'Notes',                  key: 'noteCount',               rel: 'Notes' },
+];
 
 export default class SaQuickLink extends NavigationMixin(LightningElement) {
     @api recordId;
 
     isLoading = true;
-    count = 0;
-    saRecordId = null;
+    rows = [];
+    _data = null;
 
-    @wire(getRelatedListRecords, {
-        parentRecordId: '$recordId',
-        relatedListId: 'ServiceAppointments',
-        fields: ['ServiceAppointment.Id']
-    })
-    wiredSAs({ error, data }) {
+    @wire(getCounts, { workOrderId: '$recordId' })
+    wiredCounts({ error, data }) {
         if (data) {
-            this.count = data.records.length;
-            if (this.count === 1) {
-                this.saRecordId = data.records[0].fields.Id.value;
-            }
+            this._data = data;
+            this._buildRows();
             this.isLoading = false;
         } else if (error) {
-            this.count = 0;
             this.isLoading = false;
         }
     }
 
-    handleClick() {
-        if (this.count === 1 && this.saRecordId) {
-            this[NavigationMixin.Navigate]({
-                type: 'standard__recordPage',
-                attributes: {
-                    recordId: this.saRecordId,
-                    actionName: 'view'
+    _buildRows() {
+        const d = this._data;
+        const built = [];
+
+        built.push({
+            label: 'Service Appointments',
+            count: d.serviceAppointmentCount,
+            handler: () => {
+                if (d.serviceAppointmentCount === 1 && d.serviceAppointmentId) {
+                    this[NavigationMixin.Navigate]({
+                        type: 'standard__recordPage',
+                        attributes: { recordId: d.serviceAppointmentId, actionName: 'view' }
+                    });
+                } else {
+                    this._goToRelatedList('ServiceAppointments');
                 }
-            });
-        } else {
-            this[NavigationMixin.Navigate]({
-                type: 'standard__recordRelationshipPage',
-                attributes: {
-                    recordId: this.recordId,
-                    objectApiName: 'WorkOrder',
-                    relationshipApiName: 'ServiceAppointments',
-                    actionName: 'view'
+            }
+        });
+
+        built.push({
+            label: 'Assets',
+            count: d.assetCount,
+            handler: () => {
+                if (d.assetId) {
+                    this[NavigationMixin.Navigate]({
+                        type: 'standard__recordPage',
+                        attributes: { recordId: d.assetId, actionName: 'view' }
+                    });
                 }
+            }
+        });
+
+        for (const item of RELATED_LISTS) {
+            const rel = item.rel;
+            built.push({
+                label: item.label,
+                count: d[item.key] || 0,
+                handler: rel ? () => this._goToRelatedList(rel) : () => {}
             });
         }
+
+        this.rows = built;
+    }
+
+    _goToRelatedList(relationshipApiName) {
+        this[NavigationMixin.Navigate]({
+            type: 'standard__recordRelationshipPage',
+            attributes: {
+                recordId: this.recordId,
+                objectApiName: 'WorkOrder',
+                relationshipApiName,
+                actionName: 'view'
+            }
+        });
     }
 }

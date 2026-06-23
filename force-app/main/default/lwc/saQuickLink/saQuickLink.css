@@ -1,16 +1,18 @@
 .quick-link-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     cursor: pointer;
-    padding: var(--lwc-spacingXSmall, 0.5rem) var(--lwc-spacingSmall, 0.75rem);
-    border-radius: var(--lwc-borderRadiusMedium, 0.25rem);
+    padding: 0.35rem 0.5rem;
+    border-radius: 0.25rem;
 }
 
 .quick-link-row:hover {
-    background-color: var(--lwc-colorBackgroundRowHover, #f3f3f3);
+    background-color: #f3f3f3;
 }
 
 .quick-link-label {
     font-size: 0.75rem;
-    font-weight: 400;
     color: #3e3e3c;
     line-height: 1.5;
 }
