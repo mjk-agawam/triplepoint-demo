@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<LightningComponentBundle xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>67.0</apiVersion>
+    <isExposed>true</isExposed>
+    <masterLabel>Related List Split Quick Links</masterLabel>
+    <description>
+        Shows related lists with data at top, divider, then empty related lists.
+    </description>
+    <targets>
+        <target>lightning__RecordPage</target>
+    </targets>
+    <targetConfigs>
+        <targetConfig targets="lightning__RecordPage">
+            <objects>
+                <object>WorkOrder</object>
+            </objects>
+            <property
+                name="relationshipNames"
+                type="String"
+                label="Related list API names (comma separated)"
+                description="Example: ServiceAppointments,WorkOrderLineItems,ProductsRequired,WorkPlans,WorkSteps,OpenActivities,ActivityHistories,Attachments,ContentDocumentLinks"
+            />
+        </targetConfig>
+    </targetConfigs>
+</LightningComponentBundle>

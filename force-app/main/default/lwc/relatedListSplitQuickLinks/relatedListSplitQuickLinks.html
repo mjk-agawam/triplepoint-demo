@@ -1,0 +1,37 @@
+<template>
+    <lightning-card title="Related List Quick Links">
+        <div class="links-container">
+            <template if:true={errorMessage}>
+                <div class="empty-message">{errorMessage}</div>
+            </template>
+
+            <template if:true={hasWithData}>
+                <template for:each={relatedWithData} for:item="item">
+                    <div key={item.relationshipName} class="link-row">
+                        <a href={item.url}>{item.label}</a>
+                        <span class="count-pill">{item.recordCount}</span>
+                    </div>
+                </template>
+            </template>
+
+            <template if:true={showDivider}>
+                <hr class="divider" />
+            </template>
+
+            <template if:true={hasWithoutData}>
+                <template for:each={relatedWithoutData} for:item="item">
+                    <div key={item.relationshipName} class="link-row link-row-empty">
+                        <a href={item.url}>{item.label}</a>
+                        <span class="count-pill">0</span>
+                    </div>
+                </template>
+            </template>
+
+            <template if:false={hasWithData}>
+                <template if:false={hasWithoutData}>
+                    <div class="empty-message">No related lists available.</div>
+                </template>
+            </template>
+        </div>
+    </lightning-card>
+</template>
